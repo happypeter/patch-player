@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import styled from "styled-components"
-import Typed from 'typed.js';
 
-var options = {
-  strings: ["<i>First</i> sentence.", "&amp; a second sentence."],
-  typeSpeed: 40
-}
 
+// 思路
+// 用带代码高亮的 div
+// https://github.com/jstejada/react-typist/blob/master/src/Backspace.jsx
 
 class App extends Component {
   componentDidMount() {
