@@ -16,7 +16,7 @@ const router = express.Router()
 
 router.get('/files/:name', (req, res, next) => {
   const name = req.params.name
-  const file = fs.readFileSync(`../repo/${name}`, 'utf8')
+  const file = fs.readFileSync(`../../repo/${name}`, 'utf8')
     .split('\n')
     .map((line, index) => {
       return {
@@ -25,7 +25,7 @@ router.get('/files/:name', (req, res, next) => {
       }
     })
 
-  const diff = fs.readFileSync(`../repo/${name}.patch`, 'utf8')
+  const diff = fs.readFileSync(`../../repo/${name}.patch`, 'utf8')
   return res.status(200).json({
     file,
     patch: parser(diff)

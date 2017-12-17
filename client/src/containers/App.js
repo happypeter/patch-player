@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import styled from "styled-components"
 import Typist from '../typist/Typist'
 import axios from 'axios'
+import highlight from '../utils/highlight'
+import './highlight.css'
 
 class App extends Component {
   state = {
@@ -24,9 +26,13 @@ class App extends Component {
     const action = patch[count]
     const index = file.findIndex(line => line.lineNum === action.lineNum && !line.type)
     if (action.type === 'added') {
-      action.text = (
-        action.text ? <Typist><span style={{color: 'red'}}>{action.text}</span></Typist> : <Typist><pre> </pre></Typist>
-      )
+      action.text = action.text ? (
+        <Typist>
+          <span className='keyword'>import </span>
+          <Typist.Delay ms={100} />
+          <span className='tag'>hello</span>
+        </Typist>
+      ) : <Typist><pre> </pre></Typist>
 
       this.setState({
         file: [...file.slice(0, index), action, ...file.slice(index)],
@@ -62,19 +68,19 @@ class App extends Component {
       })
   }
 
-  render () {
+  render() {
+    const content = this.state.file.map((line, index) => {
+      return (
+        <div key={index}>
+          {line.text && !line.type? <div dangerouslySetInnerHTML={{__html: highlight(line.text)}} /> : line.text}
+        </div>
+      )
+    })
+
     return (
       <Wrap onClick={this.tick}>
         <Content>
-          {
-            this.state.file.map((line, index) => {
-              return (
-                <div key={index}>
-                  {line.text ? line.text : <br />}
-                </div>
-              )
-            })
-          }
+          {content}
         </Content>
       </Wrap>
     )
@@ -87,13 +93,13 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 600px;
+  width: 900px;
   margin: 0 auto;
 `
 
 const Content = styled.div`
   height: 100%;
-  margin: 10px;
   padding: 10px;
-  border: 1px solid red;
+  background-color: #1e1e1e;
+  color: white;
 `
