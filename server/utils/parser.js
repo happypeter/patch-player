@@ -7,7 +7,7 @@ function parseFile(s) {
   return s
 }
 
-function parser(diff) {
+function diffParser(diff) {
   let file = {
     from: '',
     lines: []
@@ -59,4 +59,4 @@ function parser(diff) {
   return file
 }
 
-module.exports = parser
+module.exports = diffParser

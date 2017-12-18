@@ -1,15 +1,29 @@
 import React, { Component } from 'react'
-import styled from "styled-components"
+import styled from 'styled-components'
 import Typist from '../typist/Typist'
-import axios from 'axios'
+
 import highlight from '../utils/highlight'
 import './highlight.css'
+import io from 'socket.io-client'
 
 class App extends Component {
   state = {
     count: 0,
     file: [],
+    fileName: '',
     patch: []
+  }
+
+  componentDidMount = () => {
+    const socket = io('http://localhost:3000');
+    socket.on('file content and patch', data => {
+      console.log(data)
+      this.setState({
+        fileName: data.fileName,
+        file: data.file,
+        // patch: data.patch.lines
+      })
+    });
   }
 
   tick = () => {
@@ -54,19 +68,6 @@ class App extends Component {
 
   }
 
-  componentDidMount() {
-    const url = 'http://localhost:3000/files/a'
-    axios.get(url)
-      .then(res => {
-        this.setState({
-          file: res.data.file,
-          patch: res.data.patch.lines
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
 
   render() {
     const content = this.state.file.map((line, index) => {
@@ -80,6 +81,7 @@ class App extends Component {
     return (
       <Wrap onClick={this.tick}>
         <Content>
+          <div>{this.state.fileName}</div>
           {content}
         </Content>
       </Wrap>
@@ -100,6 +102,6 @@ const Wrap = styled.div`
 const Content = styled.div`
   height: 100%;
   padding: 10px;
-  background-color: #1e1e1e;
-  color: white;
+  background-color: #fff;
+  color: black;
 `
