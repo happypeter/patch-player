@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import './sidebar.css'
 import styled from 'styled-components'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3000')
 
 class Sidebar extends Component {
   state = {
-    commits: []
+    commits: [],
+    selectedId: ''
   }
 
   componentDidMount = () => {
@@ -15,28 +15,51 @@ class Sidebar extends Component {
     });
   }
 
-  handleClick = (item) => {
+  handleClick = (item, index) => {
+    this.setState({selectedId: index})
     const commit = item.split('--')[0]
     sessionStorage.setItem('commit', commit)
     socket.emit('commit', {commit, repo: sessionStorage.getItem('repo')});
   }
 
   render() {
-    const commitList = this.state.commits.map((item, index) => {
-      return <Div key={index} onClick={this.handleClick.bind(this, item)}>{item}</Div>
+    const { commits } = this.state
+    const commitList = commits.map((item, index) => {
+      return (
+        <Commit
+          key={index}
+          active={index === this.state.selectedId}
+          onClick={this.handleClick.bind(this, item, index)}
+        >
+          {item.length > 20 ? item.slice(0, 30) + '...' : item}
+        </Commit>
+      )
     })
 
     return (
-      <div className='sidebar'>
+      <Wrapper>
         {commitList}
-      </div>
+      </Wrapper>
     )
   }
 }
 
 export default Sidebar
 
-const Div = styled.div`
+const Commit = styled.div`
   cursor: pointer;
   padding: 8px;
+  color: #2e444e;
+  margin: 8px 16px;
+  font-size: 14px;
+  background: ${props => props.active ? '#1414141a' : ''};
+  &:hover {
+    background-color: #1414141a;
+  }
+`
+
+const Wrapper = styled.div`
+  background-color: #efefef;
+  padding-top: 24px;
+  overflow-y: auto;
 `

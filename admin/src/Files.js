@@ -6,7 +6,8 @@ const socket = io('http://localhost:3000')
 class Files extends Component {
   state = {
     files: [],
-    changed: []
+    changed: [],
+    selectedId: ''
   }
 
   componentDidMount = () => {
@@ -18,24 +19,43 @@ class Files extends Component {
     });
   }
 
-  handleClick = (file) => {
+  handleClick = (file, status, index) => {
+    this.setState({selectedId: index})
     const commit = sessionStorage.getItem('commit')
     const repo = sessionStorage.getItem('repo')
-    socket.emit('file', {file, commit, repo});
+    socket.emit('file', {file, status, commit, repo});
   }
 
   render() {
-    const fileList = this.state.files.map((file, index) => {
-      if (this.state.changed.includes(file)) {
-        return <Changed key={index} onClick={this.handleClick.bind(this, file)}>{file}</Changed>
+    const { changed, files } = this.state
+    const fileList = files.map((file, index) => {
+      const include = changed.find(item => item.file === file)
+      if (include) {
+        return (
+          <Changed
+            key={index}
+            active={index === this.state.selectedId}
+            onClick={this.handleClick.bind(this, file, include.status, index)}
+          >
+            {file} -- {include.status}
+          </Changed>
+        )
       }
-      return <Unchanged key={index} onClick={this.handleClick.bind(this, file)}>{file}</Unchanged>
+      return (
+        <Unchanged
+          key={index}
+          active={index === this.state.selectedId}
+          onClick={this.handleClick.bind(this, file, 'K', index)}
+        >
+          {file}
+        </Unchanged>
+      )
     })
 
     return (
-      <div className='sidebar'>
+      <Wrapper>
         {fileList}
-      </div>
+      </Wrapper>
     )
   }
 }
@@ -43,13 +63,32 @@ class Files extends Component {
 export default Files
 
 const Changed = styled.div`
-  color: red;
+  color: #ff4081;
   cursor: pointer;
   padding: 8px;
+  margin: 8px 16px;
+  font-size: 14px;
+  background: ${props => props.active ? '#1414141a' : ''};
+  &:hover {
+    background-color: #1414141a;
+  }
 `
 
 const Unchanged = styled.div`
   color: black;
   cursor: pointer;
   padding: 8px;
+  margin: 8px 16px;
+  font-size: 14px;
+  color: #2e444e;
+  background: ${props => props.active ? '#1414141a' : ''};
+  &:hover {
+    background-color: #1414141a;
+  }
+`
+
+const Wrapper = styled.div`
+  background-color: #efefef;
+  padding-top: 24px;
+  overflow-y: auto;
 `

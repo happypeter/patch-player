@@ -38,9 +38,17 @@ io.on('connection', socket => {
       git.diffTree(source)
     ])
       .then(result => {
+        let changed = []
+        if (result[1]) {
+          changed = result[1].trim().split('\n').map(item => {
+            const arr = item.split(/\s/)
+            return {status: arr[0], file: arr[1]}
+          })
+        }
+
         socket.broadcast.emit('commit files', {
           files: result[0].split('\n'),
-          changed: result[1].split('\n')
+          changed
         })
       })
       .catch(error => {
@@ -54,18 +62,25 @@ io.on('connection', socket => {
       git.showFilePatch(source)
     ])
       .then(result => {
-        const file = result[0].split('\n')
-          .map((line, index) => {
-            return {
-              text: line,
-              lineNum: index + 1
-            }
-          })
+        let file = []
+        if (result[0]) {
+          file = result[0].split('\n')
+            .map((line, index) => {
+              return {
+                text: line,
+                lineNum: index + 1
+              }
+            })
+        }
+
         socket.broadcast.emit('file content and patch', {
           fileName: source.file,
           file,
           // patch: diffParser(result[1])
         });
+      })
+      .catch(error => {
+        console.log(error)
       })
   })
 })
