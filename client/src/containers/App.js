@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Typist from '../typist/Typist'
 
-import './highlight.css'
 import io from 'socket.io-client'
 import Prism from 'prismjs'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-markup'
+import 'prismjs/components/prism-jsx'
+import 'prismjs/components/prism-markdown'
+import 'prismjs/components/prism-json'
+import 'prismjs/components/prism-git'
+
 
 class App extends Component {
   state = {
@@ -28,7 +34,7 @@ class App extends Component {
 
   tick = () => {
     const {count} = this.state
-    const {patch, content, name} = this.state.file
+    const {patch, content, name, language} = this.state.file
 
     //鼠标点击次数不能大于 patch 数组长度
     if (count >= patch.length) return
@@ -45,12 +51,17 @@ class App extends Component {
     if (action.type === 'added') {
       action.text = action.text ? (
         <Typist>
-          <pre><code className='language-markup'>{action.text}</code></pre>
+          <pre><code className={`language-${language}`}>{action.text}</code></pre>
         </Typist>
       ) : <Typist><pre> </pre></Typist>
 
       this.setState({
-        file: {name, patch, content: [...content.slice(0, index), action, ...content.slice(index)]},
+        file: {
+          name,
+          patch,
+          language,
+          content: [...content.slice(0, index), action, ...content.slice(index)]
+        },
         count: count + 1
       })
     } else if (action.type === 'deleted') {
@@ -62,7 +73,12 @@ class App extends Component {
       )
 
       this.setState({
-        file: {name, patch, content: [...content.slice(0, index), action, ...content.slice(index + 1)]},
+        file: {
+          name,
+          patch,
+          language,
+          content: [...content.slice(0, index), action, ...content.slice(index + 1)]
+        },
         count: count + 1
       })
     }
@@ -75,6 +91,7 @@ class App extends Component {
       count: 0
     })
   }
+
 
   render() {
     const { files, file } = this.state
@@ -95,7 +112,7 @@ class App extends Component {
           <div key={index}>
             { line.text && !line.type ? (
               <pre key={index}>
-                <code className='language-javascript'>{line.text}</code>
+                <code className={`language-${file.language}`}>{line.text}</code>
               </pre>
             ) : line.text}
           </div>

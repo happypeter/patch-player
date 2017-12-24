@@ -7,6 +7,7 @@ const http = require('http')
 
 const git = require('./utils/git-cmd')
 const parser = require('./utils/parser')
+const language = require('./utils/language')
 
 const server = http.createServer(app)
 const io = socketIo(server)
@@ -78,15 +79,16 @@ io.on('connection', socket => {
           file: {
             name: source.file,
             content,
-            patch: parser.markUpDiff(result[1])
+            patch: result[1] ? parser.markUpDiff(result[1]) : null
           }
         });
         // client end
         socket.broadcast.emit('file content and patch', {
           file: {
+            language: language(source.file, result[0]),
             name: source.file,
             content,
-            patch: parser.diff(result[1])
+            patch: result[1] ? parser.diff(result[1]) : null
           }
         });
       })

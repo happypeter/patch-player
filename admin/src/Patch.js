@@ -11,7 +11,7 @@ class Patch extends Component {
     const socket = io('http://localhost:3000')
     socket.on('file and patch', data => {
       this.setState({
-        patch: data.file.patch.split('\n')
+        patch: data.file.patch ? data.file.patch.split('\n') : []
       })
     });
   }
