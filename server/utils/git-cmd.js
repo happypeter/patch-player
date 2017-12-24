@@ -6,7 +6,7 @@ exports.log = (repo) => {
 }
 
 exports.lsTree = (data) => {
-  const args = ['ls-tree', '--name-only', '-r', data.commit, ]
+  const args = ['ls-tree', '--name-only', '-r', data.commit]
   return cmd(args, data.repo)
 }
 

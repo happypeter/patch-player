@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import Sidebar from './Sidebar'
 import Files from './Files'
+import Patch from './Patch'
 import styled from 'styled-components'
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
         <Bottom>
           <Sidebar />
           <Files />
+          <Patch />
         </Bottom>
       </Wrapper>
     );

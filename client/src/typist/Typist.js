@@ -4,7 +4,7 @@ import Cursor from './Cursor';
 import Backspace from './Backspace';
 import Delay from './Delay';
 import * as utils from './utils';
-
+import Prism from 'prismjs'
 
 const ACTION_CHARS = ['🔙', '⏰'];
 
@@ -88,6 +88,7 @@ export default class Typist extends Component {
     if (!this.mounted) { return; }
     this.setState({ isDone: true });
     this.props.onTypingDone();
+    Prism.highlightAll()
   }
 
   delayGenerator = (line, lineIdx, character, charIdx) => {

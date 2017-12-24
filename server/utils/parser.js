@@ -1,28 +1,11 @@
-const fs = require('fs')
-
-// const fs = require('fs')
-// 只处理一个 diff，并且 diff 中只有一个 hunk 的情况
-
-function parseFile(s) {
-  return s
-}
-
-function diffParser(diff) {
-  let file = {
-    from: '',
-    lines: []
-  }
+exports.diff = (diff) => {
+  let patch = []
   let lineNum = 0
 
   let lines = diff.split('\n')
   let matches
   for(let i = 0; i < lines.length; i++) {
     let line = lines[i]
-    matches = line.match(/^diff\s\-\-git\s("a\/.*"|a\/.*)\s("b\/.*"|b\/.*)$/)
-
-    if(matches) {
-      file.from = parseFile(matches[1])
-    }
 
     if (/^@@\s+\-(\d+),(\d+)\s+\+(\d+),(\d+)\s@@/.test(line)) {
       matches = line.match(/^@@\s+\-(\d+),(\d+)\s+\+(\d+),(\d+)\s@@/)
@@ -35,7 +18,7 @@ function diffParser(diff) {
     }
 
     if (/^\-/.test(line)) {
-      file.lines.push({
+      patch.push({
         type: "deleted",
         text: line.substr(1),
         lineNum: lineNum++
@@ -44,7 +27,7 @@ function diffParser(diff) {
     }
 
     if (/^\+/.test(line)) {
-      file.lines.push({
+      patch.push({
         type: "added",
         text: line.substr(1),
         lineNum: lineNum,
@@ -56,7 +39,40 @@ function diffParser(diff) {
       lineNum++
     }
   }
-  return file
+
+  return patch
 }
 
-module.exports = diffParser
+function escape(str) {
+  return str
+    .replace( /&/g, '&amp;' )
+    .replace( /</g, '&lt;' )
+    .replace( />/g, '&gt;' )
+    .replace( /\t/g, '  ' );
+}
+
+exports.markUpDiff = (diff) => {
+  let diffClasses = {
+    'd': 'file',
+    'i': 'file',
+    '@': 'info',
+    '-': 'delete',
+    '+': 'insert',
+    ' ': 'context'
+  }
+
+  let tmp = []
+  let marker = false
+  let idx
+  diff.split('\n').forEach((line, index) => {
+    let type = line.charAt(0)
+    if (type === '@' && marker === false) {
+      marker = true
+      idx = index
+    }
+    let text
+    type === '@' ? text = line : text = line.slice(1)
+    tmp.push("<pre class='" + diffClasses[type] + "'>" + escape(text) + "</pre>")
+  })
+  return tmp.slice(idx).join('\n')
+}

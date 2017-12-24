@@ -6,7 +6,7 @@ const socketIo = require('socket.io')
 const http = require('http')
 
 const git = require('./utils/git-cmd')
-const diffParser = require('./utils/parser')
+const parser = require('./utils/parser')
 
 const server = http.createServer(app)
 const io = socketIo(server)
@@ -62,9 +62,9 @@ io.on('connection', socket => {
       git.showFilePatch(source)
     ])
       .then(result => {
-        let file = []
+        let content = []
         if (result[0]) {
-          file = result[0].split('\n')
+          content = result[0].split('\n')
             .map((line, index) => {
               return {
                 text: line,
@@ -73,10 +73,21 @@ io.on('connection', socket => {
             })
         }
 
+        // admin system
+        socket.broadcast.emit('file and patch', {
+          file: {
+            name: source.file,
+            content,
+            patch: parser.markUpDiff(result[1])
+          }
+        });
+        // client end
         socket.broadcast.emit('file content and patch', {
-          fileName: source.file,
-          file,
-          // patch: diffParser(result[1])
+          file: {
+            name: source.file,
+            content,
+            patch: parser.diff(result[1])
+          }
         });
       })
       .catch(error => {
