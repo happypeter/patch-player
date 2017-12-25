@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Typist from '../typist/Typist'
-
 import io from 'socket.io-client'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-javascript'
@@ -48,6 +47,8 @@ class App extends Component {
 
   tick = () => {
     const {count} = this.state
+    if (!Object.keys(this.state.file).length) return
+
     const {patch, content, name, language} = this.state.file
 
     //鼠标点击次数不能大于 patch 数组长度
@@ -81,7 +82,7 @@ class App extends Component {
     } else if (action.type === 'deleted') {
       action.text = (
         <Typist>
-          <span style={{color: 'blue'}}>{action.text}</span>
+          <pre><code className={`language-${language}`} style={{color: '#905'}}>{action.text}</code></pre>
           <Typist.Backspace count={action.text.length} delay={200} />
         </Typist>
       )
@@ -105,7 +106,6 @@ class App extends Component {
       count: 0
     })
   }
-
 
   render() {
     const { files, file } = this.state

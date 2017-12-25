@@ -183,6 +183,7 @@ export default class Typist extends Component {
         this.setState({ textLines }, () => {
           const delay = this.delayGenerator(line, lineIdx, character, charIdx);
           onCharacterTyped(character, charIdx);
+          Prism.highlightAll();
           setTimeout(resolve, delay);
         });
       });
