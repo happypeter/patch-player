@@ -99,8 +99,16 @@ class App extends Component {
     //文件列表
     let fileList
     if (files.length) {
-      fileList = files.map((file, index) => {
-        return <FileTab key={index} onClick={this.handleClick.bind(this, index)}>{file.name}</FileTab>
+      fileList = files.map((item, index) => {
+        return (
+          <FileTab
+            active={item.name === file.name}
+            key={index}
+            onClick={this.handleClick.bind(this, index)}
+          >
+            {item.name}
+          </FileTab>
+        )
       })
     }
 
@@ -157,8 +165,9 @@ const FileTabs = styled.div`
 `
 
 const FileTab = styled.div`
-  margin: 24px;
+  margin: 12px 12px 0;
   padding: 10px;
+  background: ${props => props.active ? '#00bcd4' : ''};
   &:hover {
     background: #00bcd4;
     cursor: pointer;
