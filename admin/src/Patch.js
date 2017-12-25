@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
 import styled from 'styled-components'
+import './patch.css'
 
 class Patch extends Component {
   state = {
@@ -38,4 +39,8 @@ export default Patch
 
 const Wrapper = styled.div`
   padding: 24px;
+  flex-grow: 1;
+  border: 1px solid #d8d8d8;
+  padding: 0.5em 0;
+  overflow: auto;
 `

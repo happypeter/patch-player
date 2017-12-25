@@ -70,9 +70,8 @@ exports.markUpDiff = (diff) => {
       marker = true
       idx = index
     }
-    let text
-    type === '@' ? text = line : text = line.slice(1)
-    tmp.push("<pre class='" + diffClasses[type] + "'>" + escape(text) + "</pre>")
+
+    tmp.push("<pre class='" + diffClasses[type] + "'>" + escape(line) + "</pre>")
   })
   return tmp.slice(idx).join('\n')
 }

@@ -60,6 +60,5 @@ const Commit = styled.div`
 
 const Wrapper = styled.div`
   background-color: #efefef;
-  padding-top: 24px;
   overflow-y: auto;
 `
