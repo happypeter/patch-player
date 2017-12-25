@@ -14,7 +14,8 @@ class Files extends Component {
     socket.on('commit files', data => {
       this.setState({
         files: data.files,
-        changed: data.changed
+        changed: data.changed,
+        selectedId: ''
       })
     });
   }

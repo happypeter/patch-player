@@ -18,7 +18,7 @@ exports.diffTree = (data) => {
 exports.showFilePatch = (data) => {
   // K 表示在版本中没有变动的文件
   if (data.status === 'K') return
-  const args = ['show', '--pretty=format:%b', data.commit, data.file]
+  const args = ['show', '--pretty=format:%b', data.commit, '--', data.file]
   return cmd(args, data.repo)
 }
 

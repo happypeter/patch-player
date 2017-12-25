@@ -9,6 +9,11 @@ class Patch extends Component {
 
   componentDidMount = () => {
     const socket = io('http://localhost:3000')
+    socket.on('commit files', data => {
+      this.setState({
+        patch: []
+      })
+    });
     socket.on('file and patch', data => {
       this.setState({
         patch: data.file.patch ? data.file.patch.split('\n') : []

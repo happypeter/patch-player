@@ -22,9 +22,13 @@ class App extends Component {
   componentDidMount = () => {
     const socket = io('http://localhost:3000');
     socket.on('file content and patch', data => {
-      this.setState({
-        files: this.state.files.concat(data.file)
-      })
+      const {files} = this.state
+      const exist = files.find(file => file.name === data.file.name)
+      if (!exist) {
+        this.setState({
+          files: this.state.files.concat(data.file)
+        })
+      }
     });
   }
 
