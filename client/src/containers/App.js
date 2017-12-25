@@ -16,17 +16,27 @@ class App extends Component {
   state = {
     count: 0, // 鼠标点击次数
     file: {},
-    files: []
+    files: [],
+    commit: ''
   }
 
   componentDidMount = () => {
     const socket = io('http://localhost:3000');
     socket.on('file content and patch', data => {
-      const {files} = this.state
-      const exist = files.find(file => file.name === data.file.name)
-      if (!exist) {
+      const {files, commit} = this.state
+      if (commit === data.commit) {
+        const exist = files.find(file => file.name === data.file.name)
+        if (!exist) {
+          this.setState({
+            files: this.state.files.concat(data.file),
+            commit: data.commit
+          })
+        }
+      } else {
         this.setState({
-          files: this.state.files.concat(data.file)
+          files: [].concat(data.file),
+          commit: data.commit,
+          file: {}
         })
       }
     });

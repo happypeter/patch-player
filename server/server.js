@@ -84,6 +84,7 @@ io.on('connection', socket => {
         });
         // client end
         socket.broadcast.emit('file content and patch', {
+          commit: source.commit,
           file: {
             language: language(source.file, result[0]),
             name: source.file,
