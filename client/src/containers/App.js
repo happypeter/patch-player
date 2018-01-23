@@ -39,7 +39,7 @@ class App extends Component {
     }
     const innerTree = allText.map(
       (t, i) => {
-        props.key = i.toString()
+        props.key = Math.random()
         return  React.createElement('div', props, t)
       }
     )
