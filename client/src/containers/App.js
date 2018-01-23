@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
 import * as utils from '../utils/'
+
+
 class App extends Component {
   state = {
-    textLine: ''
+    textLines: [
+      'the first line',
+      'the second line',
+      'the third line'
+    ],
+    newTextLine: ''
   }
 
   typeCharacter = character => {
-    let { textLine } = this.state
+    let { newTextLine } = this.state
     return new Promise((resolve) => {
-      textLine += character
-      this.setState({ textLine }, () => {
+      newTextLine += character
+      this.setState({ newTextLine }, () => {
         const delay = 100
         setTimeout(resolve, delay);
       })
@@ -25,12 +32,17 @@ class App extends Component {
   }
 
   render() {
-    const { textLine } = this.state
+    const { newTextLine, textLines } = this.state
+    const allText = [...textLines, newTextLine]
     const props = {
-      className: 'highlight',
-      key: 'uid'
+      className: 'line'
     }
-    const innerTree = React.createElement('div', props, textLine)
+    const innerTree = allText.map(
+      (t, i) => {
+        props.key = i.toString()
+        return  React.createElement('div', props, t)
+      }
+    )
     return <div>{innerTree}</div>
   }
 }
