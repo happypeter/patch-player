@@ -13,9 +13,8 @@ class App extends Component {
   }
 
   typeCharacter = character => {
-    let { newTextLine } = this.state
     return new Promise((resolve) => {
-      newTextLine += character
+      let newTextLine = this.state.newTextLine + character
       this.setState({ newTextLine }, () => {
         const delay = 100
         setTimeout(resolve, delay);
