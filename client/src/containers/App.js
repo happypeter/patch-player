@@ -33,9 +33,18 @@ class App extends Component {
 
   removeLine = lineIndex => {
     const { textLines } = this.state
+    console.log('ttt', textLines)
     this.setState({
-      textLines: utils.removeElementAtIndex(textLines, lineIndex)
+      textLines: utils.addHintToDeletedLine(textLines, lineIndex)
     })
+    setTimeout(
+      () => 
+        this.setState({
+          textLines: utils.removeElementAtIndex(textLines, lineIndex)
+        })
+      , 2000
+    )
+   
   }
 
   handleInsert = () => {
@@ -45,8 +54,8 @@ class App extends Component {
   }
 
   handleRemove = () => {
-    const REMOVED_LINE_INEXT = 2
-    this.removeLine(REMOVED_LINE_INEXT)
+    const REMOVED_LINE_INDEX = 0
+    this.removeLine(REMOVED_LINE_INDEX)
   }
 
   render() {

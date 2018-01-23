@@ -31,3 +31,14 @@ export const removeElementAtIndex = (arr, index) => {
     ...arr.slice(index + 1)
   ]
 }
+
+export const addHintToDeletedLine = (textlines, index) => {
+  return textlines.map(
+    (t, i) => {
+      if (i === index) {
+        return t + 'DELETE'
+      }
+      return t
+    }
+  )
+}
