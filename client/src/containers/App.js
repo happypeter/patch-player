@@ -26,8 +26,17 @@ class App extends Component {
     utils.eachPromise(line, this.typeCharacter)
   }
 
+  removeLine = lineIndex => {
+    const { textLines } = this.state
+    this.setState({
+      textLines: utils.removeLine(textLines, lineIndex)
+    })
+  }
+
   componentDidMount() {
     this.typeLine('hey, people')
+    const REMOVED_LINE_NO = 1
+    this.removeLine(REMOVED_LINE_NO)
   }
 
   render() {
