@@ -8,50 +8,65 @@ class App extends Component {
       'the first line',
       'the second line',
       'the third line'
-    ],
-    newTextLine: ''
+    ]
   }
 
-  typeCharacter = character => {
+  typeCharacter = (character, index) => {
     return new Promise((resolve) => {
-      let newTextLine = this.state.newTextLine + character
-      this.setState({ newTextLine }, () => {
+      let textLines = utils.insertCharacterAtIndex(this.state.textLines, character, index)
+      this.setState({ textLines }, () => {
         const delay = 100
         setTimeout(resolve, delay);
       })
     })
   }
 
-  typeLine = line => {
-    utils.eachPromise(line, this.typeCharacter)
+  insertLine = (line, index) => {
+    const { textLines } = this.state
+    const newTextLines = utils.insertEmptyLineAtIndex(textLines, index)
+    this.setState({
+      textLines: newTextLines
+    })
+    // 先开辟出新行来，然后在下面的代码中在新的空白行中逐渐添加字符
+    utils.eachPromise(line, this.typeCharacter, index)
   }
 
   removeLine = lineIndex => {
     const { textLines } = this.state
     this.setState({
-      textLines: utils.removeLine(textLines, lineIndex)
+      textLines: utils.removeElementAtIndex(textLines, lineIndex)
     })
   }
 
-  componentDidMount() {
-    this.typeLine('hey, people')
-    const REMOVED_LINE_NO = 1
-    this.removeLine(REMOVED_LINE_NO)
+  handleInsert = () => {
+    const INSERT_LINE_INEXT = 1
+    const INSERT_LINE_TEXT = 'console.log(\'ss\')'
+    this.insertLine(INSERT_LINE_TEXT, INSERT_LINE_INEXT)
+  }
+
+  handleRemove = () => {
+    const REMOVED_LINE_INEXT = 2
+    this.removeLine(REMOVED_LINE_INEXT)
   }
 
   render() {
-    const { newTextLine, textLines } = this.state
-    const allText = [...textLines, newTextLine]
+    const { textLines } = this.state
     const props = {
       className: 'line'
     }
-    const innerTree = allText.map(
+    const innerTree = textLines.map(
       (t, i) => {
         props.key = Math.random()
         return  React.createElement('div', props, t)
       }
     )
-    return <div>{innerTree}</div>
+    return (
+      <div>
+        {innerTree}
+        <button onClick={this.handleInsert}>Insert</button>
+        <button onClick={this.handleRemove}>Remove</button>
+      </div>
+    )
   }
 }
 

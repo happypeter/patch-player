@@ -1,12 +1,31 @@
-export function eachPromise(str, iterator) {
+export function eachPromise(str, iterator, index) {
   const promiseReducer = (prev, current) =>
-    prev.then(() => iterator(current))
+    prev.then(() => iterator(current, index))
     
   return Array.from(str).reduce(promiseReducer, Promise.resolve());
 }
 
 
-export const removeLine = (arr, index) => {
+export const insertEmptyLineAtIndex = (arr, index) => {
+  return [
+    ...arr.slice(0, index),
+    '',
+    ...arr.slice(index)
+  ]
+}
+
+export const insertCharacterAtIndex = (arr, char, index) => {
+  return arr.map(
+    (t, i) => {
+      if (i === index) {
+        return t + char
+      }
+      return t
+    }
+  )
+}
+
+export const removeElementAtIndex = (arr, index) => {
   return [
     ...arr.slice(0, index),
     ...arr.slice(index + 1)
