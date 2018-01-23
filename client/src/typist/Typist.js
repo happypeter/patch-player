@@ -174,12 +174,16 @@ export default class Typist extends Component {
           textLines[lineIdx] += character;
         }
 
+        // 下面的代码是 billie 改过的
+        // 为了实现删除特效
         if (!isBackspace && this.deleted) {
           this.setState({textLines})
           resolve();
           return;
         }
 
+        // 下面也改动过了
+        // 为了实现在打印的过程中高亮，每打一个字符一次渲染高亮
         this.setState({ textLines }, () => {
           const delay = this.delayGenerator(line, lineIdx, character, charIdx);
           onCharacterTyped(character, charIdx);

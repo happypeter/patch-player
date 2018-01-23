@@ -128,12 +128,15 @@ class App extends Component {
     }
 
     // 文件内容
+    // line.type: 由 server 端处理得到，有两种可能值， add/minus
+    // 当本行内容是原始内容的时候 !line.type 为 true
     let content
     if (file && file.content) {
       content = file.content.map((line, index) => {
         return (
           <div key={index}>
             { line.text && !line.type ? (
+              
               <pre key={index}>
                 <code className={`language-${file.language}`}>{line.text}</code>
               </pre>
