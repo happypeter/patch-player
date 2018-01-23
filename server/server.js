@@ -8,6 +8,9 @@ const http = require('http')
 const git = require('./utils/git-cmd')
 const parser = require('./utils/parser')
 const language = require('./utils/language')
+const cors = require('cors');
+
+app.use(cors());
 
 const server = http.createServer(app)
 const io = socketIo(server)
@@ -107,6 +110,6 @@ app.use(function(err, req, res, next) {
   res.json({success: false, error: err.message })
 })
 
-server.listen(3000, () => {
-  console.log(`running on port 3000...`)
+server.listen(3008, () => {
+  console.log(`running on port 3008...`)
 })

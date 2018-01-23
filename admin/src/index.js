@@ -4,9 +4,11 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import io from 'socket.io-client';
+import { SERVER_URL } from './Constants'
+
 
 if (sessionStorage.repo) {
-  const socket = io('http://localhost:3000')
+  const socket = io(SERVER_URL)
   socket.emit('repo', {repo: sessionStorage.repo});
 }
 

@@ -4,13 +4,14 @@ import Sidebar from './Sidebar'
 import Files from './Files'
 import Patch from './Patch'
 import styled from 'styled-components'
+import { SERVER_URL } from './Constants'
 
 class App extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const repo = this.input.value
     sessionStorage.setItem('repo', repo)
-    const socket = io('http://localhost:3000')
+    const socket = io(SERVER_URL)
     socket.emit('repo', {repo: repo});
   }
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import io from 'socket.io-client'
 import styled from 'styled-components'
 import './patch.css'
+import { SERVER_URL } from './Constants'
+
 
 class Patch extends Component {
   state = {
@@ -9,7 +11,7 @@ class Patch extends Component {
   }
 
   componentDidMount = () => {
-    const socket = io('http://localhost:3000')
+    const socket = io(SERVER_URL)
     socket.on('commit files', data => {
       this.setState({
         patch: []

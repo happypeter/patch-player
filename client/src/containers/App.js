@@ -9,6 +9,7 @@ import 'prismjs/components/prism-jsx'
 import 'prismjs/components/prism-markdown'
 import 'prismjs/components/prism-json'
 import 'prismjs/components/prism-git'
+import { SERVER_URL } from '../constants/ApiConstants'
 
 
 class App extends Component {
@@ -20,7 +21,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    const socket = io('http://localhost:3000');
+    const socket = io(SERVER_URL);
     socket.on('file content and patch', data => {
       const {files, commit} = this.state
       if (commit === data.commit) {

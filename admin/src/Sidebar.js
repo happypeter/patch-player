@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import io from 'socket.io-client'
-const socket = io('http://localhost:3000')
+import { SERVER_URL } from './Constants'
+const socket = io(SERVER_URL)
 
 class Sidebar extends Component {
   state = {
