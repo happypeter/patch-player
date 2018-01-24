@@ -42,3 +42,13 @@ export const addHintToDeletedLine = (textlines, index) => {
     }
   )
 }
+
+export const flat = arr => {
+  return arr.reduce(
+    (a, t) => {
+      a = [...a, ...t]
+      return a  
+    }
+    , []
+  )
+}

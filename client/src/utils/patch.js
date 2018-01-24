@@ -4,10 +4,17 @@ import {
   ADDED_LINE
 } from '../constants/RegExp'
 import * as mutationTypes from '../constants/MutationTypes'
+import * as utils from './index'
 
 
 export const parse = patch => {
-  return splitPatchToHunks(patch)
+  const hunks = splitPatchToHunks(patch)
+  const result = hunks.map(
+    t => {
+      return parseHunk(t)
+    }
+  )
+  return utils.flat(result)
 }
 
 export const splitPatchToHunks = patch => {
