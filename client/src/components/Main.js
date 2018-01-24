@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as utils from '../utils/'
+import * as patch from '../utils/patch'
 
 class Main extends Component {
   state = {
@@ -66,7 +67,7 @@ class Main extends Component {
         return React.createElement('div', props, t)
       }
     )
-    console.log(utils.parsePatch(this.props.patch))
+    console.log(patch.parse(this.props.patch))
     return (
       <div>
         {innerTree}
