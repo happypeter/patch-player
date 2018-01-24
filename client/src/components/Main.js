@@ -4,7 +4,44 @@ import * as patch from '../utils/patch'
 
 class Main extends Component {
   state = {
-    textLines: ['the first line', 'the second line', 'the third line']
+    textLines: []
+  }
+
+  componentWillMount() {
+    const file = `import styled from 'styled-components'
+ import Typist from '../typist/Typist'
+ import io from 'socket.io-client'
+ import Prism from 'prismjs'
+ import 'prismjs/components/prism-javascript'
+ import 'prismjs/components/prism-markup'
+ import 'prismjs/components/prism-jsx'
+ dsds
+ sdsd
+ sd
+ sd
+ sd
+ sds
+ ds
+ d
+ d
+ d
+ d
+ d
+ d
+   componentDidMount = () => {
+     const socket = io(SERVER_URL);
+    socket.on('file content and patch', data => {
+      const {files, commit} = this.state
+       if (commit === data.commit) {
+         const exist = files.find(file => file.name === data.file.name)
+         if (!exist) {
+    
+    `
+
+    const textLines = file.split('\n')
+    this.setState({
+      textLines
+    })
   }
 
   typeCharacter = (character, index) => {
@@ -55,29 +92,7 @@ class Main extends Component {
     return this.insertLine(mutation)
   }
 
-  handleInsert = () => {
-    const mutations = [
-      {
-        type: 'DELETE',
-        text: 'hello1',
-        lineNum: 3
-      },
-      {
-        type: 'ADD',
-        text: 'hello2',
-        lineNum: 1
-      },
-      {
-        type: 'ADD',
-        text: 'hello3',
-        lineNum: 2
-      },
-      {
-        type: 'DELETE',
-        text: 'hello1',
-        lineNum: 1
-      },
-    ]
+  handleMutations = mutations => {
     utils.eachMutationPromise(mutations, this.applyMutation)
   }
 
@@ -90,12 +105,13 @@ class Main extends Component {
       props.key = Math.random()
       return React.createElement('div', props, t)
     })
-    console.log(patch.parse(this.props.patch))
+    const mutations = patch.parse(this.props.patch)
     return (
       <div>
         {innerTree}
-        <button onClick={this.handleInsert}>Insert</button>
-        <button onClick={this.handleRemove}>Remove</button>
+        <button onClick={() => this.handleMutations(mutations)}>
+          handleMutations
+        </button>
       </div>
     )
   }
