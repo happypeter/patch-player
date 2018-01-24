@@ -3,6 +3,7 @@ import {
   DELETED_LINE,
   ADDED_LINE
 } from '../constants/RegExp'
+import * as mutationTypes from '../constants/MutationTypes'
 
 export function eachPromise(str, iterator, index) {
   const promiseReducer = (prev, current) =>
@@ -51,23 +52,18 @@ export const addHintToDeletedLine = (textlines, index) => {
 
 
 export const parsePatch = patch => {
-  console.log('this is patch', patch)
-  let result = []
+  let mutations = []
   let hunkLines = patch.split('\n')
   let metaMatches = hunkLines[0].match(HUNK_META)
   let startLineNum = Number(metaMatches[1])
-  console.log('startLineNum', startLineNum)
-  // 拿到这个 patch hunk 的第一行在源文件中的行号
 
   const patchLines = hunkLines.slice(1)
-  console.log('patchLines', patchLines)
-  let offSet = 0 // startNum + offSet 等于最终的 lineNum
+  let offSet = 0 
   for (let i = 0; i < patchLines.length; i++) {
     let line = patchLines[i]
-    console.log('line====', line, i)
     if (DELETED_LINE.test(line)) {
-      result.push({
-        type: "deleted",
+      mutations.push({
+        type: mutationTypes.DELETE,
         text: line.substr(1),
         lineNum: startLineNum + offSet
       })
@@ -75,8 +71,8 @@ export const parsePatch = patch => {
     }
 
     if (ADDED_LINE.test(line)) {
-      result.push({
-        type: "added",
+      mutations.push({
+        type: mutationTypes.ADD,
         text: line.substr(1),
         lineNum: startLineNum + offSet
       })
@@ -85,17 +81,5 @@ export const parsePatch = patch => {
     }
     offSet += 1
   }
-  return result
-  // return [
-  //   {
-  //     lineNo: '3',
-  //     type: 'delete',
-  //         text: `consolg.log('hello')`
-  //       },
-  //       {
-  //         lineNo: '3',
-  //         type: 'add',
-  //         text: 'xxx'
-  //       }
-  //     ]
+  return mutations
 }
