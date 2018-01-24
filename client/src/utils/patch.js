@@ -7,7 +7,23 @@ import * as mutationTypes from '../constants/MutationTypes'
 
 
 export const parse = patch => {
-  return parseHunk(patch)
+  return splitPatchToHunks(patch)
+}
+
+export const splitPatchToHunks = patch => {
+  const lines = patch.split('\n')
+  let i = 0
+  return lines.reduce(
+    (hunks, t) => {
+      if (HUNK_META.test(t)) {
+        i += 1
+      }
+      hunks[i - 1] = hunks[i - 1]||''
+      hunks[i - 1] = hunks[i - 1] + t + '\n'
+      return hunks
+    }
+    , []
+  )
 }
 
 export const parseHunk = hunk => {
