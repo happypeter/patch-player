@@ -21,8 +21,9 @@ class Main extends Component {
     })
   }
 
-  insertLine = (line, index) => {
+  insertLine = (line, lineNum) => {
     const { textLines } = this.state
+    let index = lineNum + 1
     const newTextLines = utils.insertEmptyLineAtIndex(textLines, index)
     this.setState({
       textLines: newTextLines
@@ -46,9 +47,9 @@ class Main extends Component {
   }
 
   handleInsert = () => {
-    const INSERT_LINE_INEXT = 1
+    const INSERT_LINE_NO = 1
     const INSERT_LINE_TEXT = "console.log('ss')"
-    this.insertLine(INSERT_LINE_TEXT, INSERT_LINE_INEXT)
+    this.insertLine(INSERT_LINE_TEXT, INSERT_LINE_NO)
   }
 
   handleRemove = () => {
