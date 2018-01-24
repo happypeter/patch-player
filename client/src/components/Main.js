@@ -21,15 +21,15 @@ class Main extends Component {
     })
   }
 
-  insertLine = (line, lineNum) => {
+  insertLine = mutation => {
     const { textLines } = this.state
-    let index = lineNum + 1
+    let index = mutation.lineNum - 1
     const newTextLines = utils.insertEmptyLineAtIndex(textLines, index)
     this.setState({
       textLines: newTextLines
     })
     // 先开辟出新行来，然后在下面的代码中在新的空白行中逐渐添加字符
-    utils.eachPromise(line, this.typeCharacter, index)
+    utils.eachPromise(mutation.text, this.typeCharacter, index)
   }
 
   removeLine = lineIndex => {
@@ -47,9 +47,19 @@ class Main extends Component {
   }
 
   handleInsert = () => {
-    const INSERT_LINE_NO = 1
-    const INSERT_LINE_TEXT = "console.log('ss')"
-    this.insertLine(INSERT_LINE_TEXT, INSERT_LINE_NO)
+    const mutations = [
+      {
+        type: 'ADD',
+        text: 'hello1',
+        lineNum: 3
+      },
+      {
+        type: 'ADD',
+        text: 'hello2',
+        lineNum: 4
+      }
+    ]
+    this.insertLine(mutations[0])
   }
 
   handleRemove = () => {
