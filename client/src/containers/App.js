@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as utils from '../utils/'
-
+import { connect } from 'react-redux'
 
 class App extends Component {
   state = {
@@ -33,7 +33,6 @@ class App extends Component {
 
   removeLine = lineIndex => {
     const { textLines } = this.state
-    console.log('ttt', textLines)
     this.setState({
       textLines: utils.addHintToDeletedLine(textLines, lineIndex)
     })
@@ -69,6 +68,7 @@ class App extends Component {
         return  React.createElement('div', props, t)
       }
     )
+    console.log('patch...', this.props.patch)
     return (
       <div>
         {innerTree}
@@ -79,4 +79,8 @@ class App extends Component {
   }
 }
 
-export default App
+const mapStateToProps = state => ({
+  patch: state.patch
+})
+
+export default connect(mapStateToProps)(App)
