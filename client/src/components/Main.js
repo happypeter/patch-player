@@ -48,44 +48,37 @@ class Main extends Component {
         )
       })
     })
-   
+  }
+
+  applyMutation = mutation => {
+    if(mutation.type === 'DELETE') return this.removeLine(mutation)
+    return this.insertLine(mutation)
   }
 
   handleInsert = () => {
     const mutations = [
       {
-        type: 'ADD',
+        type: 'DELETE',
         text: 'hello1',
-        lineNum: 1
+        lineNum: 3
       },
       {
         type: 'ADD',
         text: 'hello2',
-        lineNum: 2
-      }
-    ]
-    utils.eachMutationPromise(mutations, this.insertLine)
-  }
-
-  handleRemove = () => {
-
-    const mutations = [
+        lineNum: 1
+      },
       {
-        type: 'DELETE',
-        text: 'xxx',
+        type: 'ADD',
+        text: 'hello3',
         lineNum: 2
       },
       {
         type: 'DELETE',
-        text: 'xxx',
+        text: 'hello1',
         lineNum: 1
-      }
+      },
     ]
-    this.removeLine(mutations[0])
-    
-    .then(
-      () => this.removeLine(mutations[1])
-    )
+    utils.eachMutationPromise(mutations, this.applyMutation)
   }
 
   render() {
