@@ -59,9 +59,10 @@ class Main extends Component {
         lineNum: 4
       }
     ]
-    this.insertLine(mutations[0]).then(
-      () => this.insertLine(mutations[1])
-    )
+    // this.insertLine(mutations[0]).then(
+    //   () => this.insertLine(mutations[1])
+    // )
+    utils.eachMutationPromise(mutations, this.insertLine)
   }
 
   handleRemove = () => {

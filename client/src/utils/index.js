@@ -6,6 +6,12 @@ export function eachPromise(str, iterator, index) {
   return Array.from(str).reduce(promiseReducer, Promise.resolve())
 }
 
+export function eachMutationPromise(mutations, iterator) {
+  const promiseReducer = (prev, current) =>
+    prev.then(() => iterator(current))
+  return Array.from(mutations).reduce(promiseReducer, Promise.resolve())
+}
+
 export const insertEmptyLineAtIndex = (arr, index) => {
   return [...arr.slice(0, index), '', ...arr.slice(index)]
 }
