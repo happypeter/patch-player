@@ -29,7 +29,7 @@ class Main extends Component {
       textLines: newTextLines
     })
     // 先开辟出新行来，然后在下面的代码中在新的空白行中逐渐添加字符
-    utils.eachPromise(mutation.text, this.typeCharacter, index)
+    return utils.eachPromise(mutation.text, this.typeCharacter, index)
   }
 
   removeLine = lineIndex => {
@@ -59,7 +59,9 @@ class Main extends Component {
         lineNum: 4
       }
     ]
-    this.insertLine(mutations[0])
+    this.insertLine(mutations[0]).then(
+      () => this.insertLine(mutations[1])
+    )
   }
 
   handleRemove = () => {

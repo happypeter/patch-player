@@ -3,7 +3,6 @@ import * as mutationTypes from '../constants/MutationTypes'
 export function eachPromise(str, iterator, index) {
   const promiseReducer = (prev, current) =>
     prev.then(() => iterator(current, index))
-
   return Array.from(str).reduce(promiseReducer, Promise.resolve())
 }
 
