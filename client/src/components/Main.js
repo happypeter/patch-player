@@ -66,7 +66,7 @@ class Main extends Component {
         return React.createElement('div', props, t)
       }
     )
-    console.log('patch...', this.props.patch)
+    console.log(utils.parsePatch(this.props.patch))
     return (
       <div>
         {innerTree}
