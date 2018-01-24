@@ -4,19 +4,19 @@ import * as patch from '../utils/patch'
 
 class Main extends Component {
   state = {
-    textLines: [
-      'the first line',
-      'the second line',
-      'the third line'
-    ]
+    textLines: ['the first line', 'the second line', 'the third line']
   }
 
   typeCharacter = (character, index) => {
-    return new Promise((resolve) => {
-      let textLines = utils.insertCharacterAtIndex(this.state.textLines, character, index)
+    return new Promise(resolve => {
+      let textLines = utils.insertCharacterAtIndex(
+        this.state.textLines,
+        character,
+        index
+      )
       this.setState({ textLines }, () => {
         const delay = 100
-        setTimeout(resolve, delay);
+        setTimeout(resolve, delay)
       })
     })
   }
@@ -40,14 +40,14 @@ class Main extends Component {
       () =>
         this.setState({
           textLines: utils.removeElementAtIndex(textLines, lineIndex)
-        })
-      , 2000
+        }),
+      2000
     )
   }
 
   handleInsert = () => {
     const INSERT_LINE_INEXT = 1
-    const INSERT_LINE_TEXT = 'console.log(\'ss\')'
+    const INSERT_LINE_TEXT = "console.log('ss')"
     this.insertLine(INSERT_LINE_TEXT, INSERT_LINE_INEXT)
   }
 
@@ -61,12 +61,10 @@ class Main extends Component {
     const props = {
       className: 'line'
     }
-    const innerTree = textLines.map(
-      (t, i) => {
-        props.key = Math.random()
-        return React.createElement('div', props, t)
-      }
-    )
+    const innerTree = textLines.map((t, i) => {
+      props.key = Math.random()
+      return React.createElement('div', props, t)
+    })
     console.log(patch.parse(this.props.patch))
     return (
       <div>
