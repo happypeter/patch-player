@@ -32,18 +32,23 @@ class Main extends Component {
     return utils.eachPromise(mutation.text, this.typeCharacter, index)
   }
 
-  removeLine = lineIndex => {
+  removeLine = mutation => {
     const { textLines } = this.state
-    this.setState({
-      textLines: utils.addHintToDeletedLine(textLines, lineIndex)
+    const { lineNum } = mutation
+    const lineIndex = lineNum - 1
+    return new Promise(resolve => {
+      this.setState({
+        textLines: utils.addHintToDeletedLine(textLines, lineIndex)
+      }, () => {
+        const delay = 2000
+        setTimeout(
+          () => this.setState({
+            textLines: utils.removeElementAtIndex(textLines, lineIndex)
+          }, resolve), delay
+        )
+      })
     })
-    setTimeout(
-      () =>
-        this.setState({
-          textLines: utils.removeElementAtIndex(textLines, lineIndex)
-        }),
-      2000
-    )
+   
   }
 
   handleInsert = () => {
@@ -51,23 +56,36 @@ class Main extends Component {
       {
         type: 'ADD',
         text: 'hello1',
-        lineNum: 3
+        lineNum: 1
       },
       {
         type: 'ADD',
         text: 'hello2',
-        lineNum: 4
+        lineNum: 2
       }
     ]
-    // this.insertLine(mutations[0]).then(
-    //   () => this.insertLine(mutations[1])
-    // )
     utils.eachMutationPromise(mutations, this.insertLine)
   }
 
   handleRemove = () => {
-    const REMOVED_LINE_INDEX = 0
-    this.removeLine(REMOVED_LINE_INDEX)
+
+    const mutations = [
+      {
+        type: 'DELETE',
+        text: 'xxx',
+        lineNum: 2
+      },
+      {
+        type: 'DELETE',
+        text: 'xxx',
+        lineNum: 1
+      }
+    ]
+    this.removeLine(mutations[0])
+    
+    .then(
+      () => this.removeLine(mutations[1])
+    )
   }
 
   render() {
