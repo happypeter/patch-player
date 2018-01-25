@@ -69,26 +69,10 @@ class Main extends Component {
     return utils.eachPromise(mutation.text, this.typeCharacter, index)
   }
 
-  removeLine = mutation => {
-    const { textLines } = this.state
-    const { lineNum } = mutation
-    const lineIndex = lineNum - 1
-    return new Promise(resolve => {
-      this.setState({
-        textLines: utils.addHintToDeletedLine(textLines, lineIndex)
-      }, () => {
-        const delay = 2000
-        setTimeout(
-          () => this.setState({
-            textLines: utils.removeElementAtIndex(textLines, lineIndex)
-          }, resolve), delay
-        )
-      })
-    })
-  }
+
 
   applyMutation = mutation => {
-    if(mutation.type === 'DELETE') return this.removeLine(mutation)
+    if(mutation.type === 'DELETE') return this.props.removeLine(mutation)
     return this.insertLine(mutation)
   }
 
@@ -110,7 +94,8 @@ class Main extends Component {
     return (
       <div>
         {innerTree}
-        <button onClick={() => this.handleMutations(mutations)}>
+        {/* <button onClick={() => this.handleMutations(mutations)}> */}
+        <button onClick={() => this.props.removeLine(mutations[0])} >
           handleMutations
         </button>
       </div>

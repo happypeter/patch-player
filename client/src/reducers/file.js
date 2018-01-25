@@ -28,7 +28,19 @@ const initialState = `import styled from 'styled-components'
 `
 
 const file = (state = initialState, action) => {
-  return state
+  switch (action.type) {
+    case 'ADD_DELETE_HINT':
+      const lineNum = action.mutation.lineNum
+      const textLines = state.split('\n')
+      return textLines.map((t, i) => {
+          if (i === lineNum - 1) {
+            return t = `${t} DELETE`
+          }
+          return t
+        }).join('\n')
+    default:
+      return state
+  }
 }
 
 export default file
