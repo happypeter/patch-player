@@ -97,7 +97,8 @@ class Main extends Component {
   }
 
   render() {
-    const { textLines } = this.state
+    console.log('this.props.textLines..', this.props.textLines)
+    const { textLines } = this.props
     const props = {
       className: 'line'
     }
