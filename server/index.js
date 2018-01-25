@@ -6,8 +6,8 @@ const server = http.createServer(app)
 const io = socketIo(server)
 
 io.on('connection', socket => {
-  socket.on('repo', source => {
-    console.log(source)
+  socket.on('repo', data => {
+    const repo = data.repo
     socket.broadcast.emit('git commits', {commits: 'commits'})
   })
 })

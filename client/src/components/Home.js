@@ -10,7 +10,7 @@ class Home extends Component {
       console.log('git commits', data)
     })
   }
-  render () {
+  render() {
     const { textLines } = this.props
 
     return (
