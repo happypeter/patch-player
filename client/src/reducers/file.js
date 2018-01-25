@@ -29,14 +29,6 @@ const initialState = `import styled from 'styled-components'
          if (!exist) {
 `
 
-const removeElementAtIndex = (arr, index) => {
-  return [...arr.slice(0, index), ...arr.slice(index + 1)]
-}
-
-const insertEmptyLineAtIndex = (arr, index) => {
-  return [...arr.slice(0, index), '', ...arr.slice(index)]
-}
-
 const file = (state = initialState, action) => {
   const textLines = state.split('\n')
 
@@ -52,16 +44,14 @@ const file = (state = initialState, action) => {
         .join('\n')
     case 'DELETE_LINE':
       const index = action.mutation.lineNum - 1
-      return removeElementAtIndex(textLines, index).join('\n')
+      return utils.removeElementAtIndex(textLines, index).join('\n')
     case 'INSERT_EMPTY_LINE':
       const idx = action.mutation.lineNum - 1
-      return insertEmptyLineAtIndex(textLines, idx).join('\n')
+      return utils.insertEmptyLineAtIndex(textLines, idx).join('\n')
     case 'TYPE_CHARACTER':
       return utils
         .insertCharacterAtIndex(textLines, action.character, action.index)
         .join('\n')
-    case 'INSERT_LINE':
-      return state
     default:
       return state
   }

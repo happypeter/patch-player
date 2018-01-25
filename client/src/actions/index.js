@@ -8,7 +8,7 @@ const applyMutation = (mutation, dispatch) => {
 
 export const handleMutations = () => (dispatch, getState) => {
   const mutations = patch.parse(getState().patch)
-  utils.eachMutationPromise(mutations, applyMutation, dispatch)
+  utils.eachPromise(mutations, applyMutation, dispatch)
 }
 
 const removeLine = (mutation, dispatch) => {
