@@ -6,9 +6,9 @@ export function eachPromise(str, iterator, index, dispatch) {
   return Array.from(str).reduce(promiseReducer, Promise.resolve())
 }
 
-export function eachMutationPromise(mutations, iterator) {
+export function eachMutationPromise(mutations, iterator, dispatch) {
   const promiseReducer = (prev, current) =>
-    prev.then(() => iterator(current))
+    prev.then(() => iterator(current, dispatch))
   return Array.from(mutations).reduce(promiseReducer, Promise.resolve())
 }
 

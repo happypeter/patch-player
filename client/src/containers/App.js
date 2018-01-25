@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Main from '../components/Main'
 import { getTextLines } from '../selectors'
-import { removeLine, insertLine } from '../actions'
+import { handleMutations } from '../actions'
 
 class App extends Component {
   render() {
@@ -16,6 +16,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-  removeLine,
-  insertLine
+  handleMutations
 })(App)

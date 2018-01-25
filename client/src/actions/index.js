@@ -1,6 +1,20 @@
 import * as utils from '../utils/'
+import * as patch from '../utils/patch'
 
-export const removeLine = mutation => dispatch => {
+const applyMutation = (mutation, dispatch) => {
+  if (mutation.type === 'DELETE') return removeLine(mutation, dispatch)
+  return insertLine(mutation, dispatch)
+}
+
+export const handleMutations = () => (dispatch, getState) => {
+  const mutations = patch.parse(getState().patch)
+
+  utils.eachMutationPromise(mutations, applyMutation, dispatch)
+}
+
+
+
+const removeLine = (mutation, dispatch) => {
   return new Promise(resolve => {
     dispatch({ type: 'ADD_DELETE_HINT', mutation })
     const deleteLine = () => {
@@ -22,7 +36,7 @@ const typeCharacter = (character, index, dispatch) => {
   })
 }
 
-export const insertLine = mutation => dispatch => {
+const insertLine = (mutation, dispatch) => {
   dispatch({type: 'INSERT_EMPTY_LINE', mutation})
   const index = mutation.lineNum - 1
   return utils.eachPromise(mutation.text, typeCharacter, index, dispatch)
