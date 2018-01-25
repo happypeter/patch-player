@@ -29,6 +29,7 @@ const getOffSet = hunkMutaionArr => {
 
 let offSet = 0
 export const flat = arr => {
+  
   return arr.reduce((a, subArr) => {
     const newSubArr = subArr.map(t => ({ ...t, lineNum: t.lineNum + offSet }))
     offSet += getOffSet(subArr)

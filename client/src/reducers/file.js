@@ -1,4 +1,5 @@
 import * as utils from '../utils'
+import * as types from '../constants/ActionTypes'
 
 const initialState = `import styled from 'styled-components'
  import Typist from '../typist/Typist'
@@ -33,22 +34,22 @@ const file = (state = initialState, action) => {
   const textLines = state.split('\n')
 
   switch (action.type) {
-    case 'ADD_DELETE_HINT':
+    case types.ADD_DELETE_HINT:
       return textLines
         .map((t, i) => {
           if (i === action.mutation.lineNum - 1) {
-            return (t = `${t} DELETE`)
+            return (t = `${t} DELETE-HINT`)
           }
           return t
         })
         .join('\n')
-    case 'DELETE_LINE':
+    case types.DELETE_LINE:
       const index = action.mutation.lineNum - 1
       return utils.removeElementAtIndex(textLines, index).join('\n')
-    case 'INSERT_EMPTY_LINE':
+    case types.INSERT_EMPTY_LINE:
       const idx = action.mutation.lineNum - 1
       return utils.insertEmptyLineAtIndex(textLines, idx).join('\n')
-    case 'TYPE_CHARACTER':
+    case types.TYPE_CHARACTER:
       return utils
         .insertCharacterAtIndex(textLines, action.character, action.index)
         .join('\n')
