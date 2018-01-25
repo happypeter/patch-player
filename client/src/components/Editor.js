@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-jsx'
+import CodeStyle from './EditorCode'
 
 class HighLight extends Component {
   componentDidUpdate() {
@@ -18,7 +19,9 @@ class HighLight extends Component {
     })
     return (
       <Wrap>
-        {innerTree}
+        <CodeStyle>
+          {innerTree}
+        </CodeStyle>
       </Wrap>
     )
   }
