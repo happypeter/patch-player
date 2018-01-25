@@ -10,3 +10,11 @@ export const removeLine = mutation => dispatch => {
     setTimeout(deleteLine, 2000)
   })
 }
+
+export const insertLine = mutation => dispatch => {
+  dispatch({type: 'INSERT_EMPTY_LINE', mutation})
+  // return new Promise(resolve => {
+  //   dispatch({type: 'INSERT_LINE', mutation})
+  //   return resolve()
+  // })
+}

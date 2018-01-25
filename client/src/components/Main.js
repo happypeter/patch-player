@@ -59,7 +59,7 @@ class Main extends Component {
   }
 
   insertLine = mutation => {
-    const { textLines } = this.state
+    const { textLines } = this.props
     let index = mutation.lineNum - 1
     const newTextLines = utils.insertEmptyLineAtIndex(textLines, index)
     this.setState({
@@ -69,7 +69,9 @@ class Main extends Component {
     return utils.eachPromise(mutation.text, this.typeCharacter, index)
   }
 
-
+  insertOneLine = mutation => {
+    this.props.insertLine(mutation)
+  }
 
   applyMutation = mutation => {
     if(mutation.type === 'DELETE') return this.props.removeLine(mutation)
@@ -95,12 +97,16 @@ class Main extends Component {
       return React.createElement('div', props, t)
     })
     const mutations = patch.parse(this.props.patch)
+    console.log(mutations)
     return (
       <div>
         {innerTree}
         {/* <button onClick={() => this.handleMutations(mutations)}> */}
         <button onClick={() => this.remove2Line(mutations.slice(0, 2))} >
           handleMutations
+        </button>
+        <button onClick={() => this.insertOneLine(mutations[3])} >
+          insert line
         </button>
       </div>
     )
