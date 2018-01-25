@@ -27,17 +27,24 @@ const initialState = `import styled from 'styled-components'
          if (!exist) {
 `
 
+const removeElementAtIndex = (arr, index) => {
+  return [...arr.slice(0, index), ...arr.slice(index + 1)]
+}
+
 const file = (state = initialState, action) => {
+  const textLines = state.split('\n')
   switch (action.type) {
     case 'ADD_DELETE_HINT':
       const lineNum = action.mutation.lineNum
-      const textLines = state.split('\n')
       return textLines.map((t, i) => {
           if (i === lineNum - 1) {
             return t = `${t} DELETE`
           }
           return t
         }).join('\n')
+     case 'DELETE_LINE':
+       const index = action.mutation.lineNum - 1
+       return removeElementAtIndex(textLines, index).join('\n')
     default:
       return state
   }

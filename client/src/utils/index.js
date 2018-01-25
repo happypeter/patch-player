@@ -25,19 +25,6 @@ export const insertCharacterAtIndex = (arr, char, index) => {
   })
 }
 
-export const removeElementAtIndex = (arr, index) => {
-  return [...arr.slice(0, index), ...arr.slice(index + 1)]
-}
-
-export const addHintToDeletedLine = (textlines, index) => {
-  return textlines.map((t, i) => {
-    if (i === index) {
-      return t + 'DELETE'
-    }
-    return t
-  })
-}
-
 /*
   hunkMutaionArr = [
     {type: "DELETE", text: "import Prism from 'prismjs'", lineNum: 7}

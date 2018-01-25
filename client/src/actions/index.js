@@ -1,7 +1,8 @@
 import * as utils from '../utils/'
 
 export const removeLine = mutation => dispatch => {
-  dispatch({ type: 'ADD_DELETE_HINT', mutation})
+  // dispatch({ type: 'ADD_DELETE_HINT', mutation})
+  dispatch({ type: 'DELETE_LINE', mutation})
 }
 
 
