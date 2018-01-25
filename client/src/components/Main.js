@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
-import Editor from './Editor'
+import Home from '../containers/HomeContainer'
+import DashboardContainer from '../containers/DashboardContainer'
 import '../assets/global.css'
+import customHistory from '../utils/history'
+import {
+  Router,
+  Route
+} from 'react-router'
+import HomeContainer from '../containers/HomeContainer';
 
 class Main extends Component {
   render() {
-    const { textLines } = this.props
     return (
-      <div>
-        <Editor textLines={textLines} />
-        <button onClick={() => this.props.handleMutations()}>mutations</button>
-      </div>
+      <Router history={customHistory}>
+        <div>
+          <Route exact path='/' component={HomeContainer} />
+          <Route path='/dashboard' component={DashboardContainer} />
+        </div>
+      </Router>
     )
   }
 }
