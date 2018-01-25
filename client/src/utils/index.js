@@ -1,5 +1,3 @@
-import * as mutationTypes from '../constants/MutationTypes'
-
 export function eachPromise(str, iterator, ...args) {
   const promiseReducer = (prev, current) =>
     prev.then(() => iterator(current, ...args))
@@ -18,24 +16,6 @@ export const insertCharacterAtIndex = (arr, char, index) => {
     return t
   })
   return result
-}
-
-const getOffSet = hunkMutaionArr => {
-  return hunkMutaionArr.reduce((offSet, item) => {
-    offSet = item.type === mutationTypes.ADD ? offSet + 1 : offSet - 1
-    return offSet
-  }, 0)
-}
-
-let offSet = 0
-export const flat = arr => {
-  
-  return arr.reduce((a, subArr) => {
-    const newSubArr = subArr.map(t => ({ ...t, lineNum: t.lineNum + offSet }))
-    offSet += getOffSet(subArr)
-    a = [...a, ...newSubArr]
-    return a
-  }, [])
 }
 
 export const removeElementAtIndex = (arr, index) => {
