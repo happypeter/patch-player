@@ -40,3 +40,7 @@ const typeCharacter = (character, index, dispatch) => {
     setTimeout(type, 20)
   })
 }
+
+export const setProjectPath = () => dispatch => {
+  dispatch({ type: 'SET_PROJECT_PATH' })
+}

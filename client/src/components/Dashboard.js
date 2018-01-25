@@ -5,7 +5,9 @@ class Dashboard extends Component {
   render () {
     return (
       <Wrap>
-        Dashboard
+        <button onClick={this.props.setProjectPath}>
+          选择项目
+        </button>
       </Wrap>
     )
   }

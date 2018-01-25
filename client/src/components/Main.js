@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Home from '../containers/HomeContainer'
 import DashboardContainer from '../containers/DashboardContainer'
 import '../assets/global.css'
 import customHistory from '../utils/history'
