@@ -1,4 +1,4 @@
-const initialState =  `@@ -2,7 +2,7 @@ import React, { Component } from 'react'
+const initialState = `@@ -2,7 +2,7 @@ import React, { Component } from 'react'
  import styled from 'styled-components'
 +import Typist from '../typist/Typist'
 +import io from 'socket.io-client'

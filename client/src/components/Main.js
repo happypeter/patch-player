@@ -13,9 +13,7 @@ class Main extends Component {
     return (
       <div>
         {innerTree}
-        <button onClick={() => this.props.handleMutations()}>
-          mutations
-        </button>
+        <button onClick={() => this.props.handleMutations()}>mutations</button>
       </div>
     )
   }

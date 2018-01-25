@@ -1,3 +1,3 @@
-export const getTextLines = (state) => {
+export const getTextLines = state => {
   return state.file.split('\n')
 }

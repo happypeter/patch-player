@@ -39,25 +39,29 @@ const insertEmptyLineAtIndex = (arr, index) => {
 
 const file = (state = initialState, action) => {
   const textLines = state.split('\n')
- 
+
   switch (action.type) {
     case 'ADD_DELETE_HINT':
-      return textLines.map((t, i) => {
+      return textLines
+        .map((t, i) => {
           if (i === action.mutation.lineNum - 1) {
-            return t = `${t} DELETE`
+            return (t = `${t} DELETE`)
           }
           return t
-        }).join('\n')
-      case 'DELETE_LINE':
-        const index = action.mutation.lineNum - 1
-        return removeElementAtIndex(textLines, index).join('\n')
-      case 'INSERT_EMPTY_LINE':
-        const idx = action.mutation.lineNum - 1
-        return insertEmptyLineAtIndex(textLines, idx).join('\n')
-      case 'TYPE_CHARACTER':
-        return utils.insertCharacterAtIndex(textLines, action.character, action.index).join('\n')
-      case 'INSERT_LINE':
-        return state
+        })
+        .join('\n')
+    case 'DELETE_LINE':
+      const index = action.mutation.lineNum - 1
+      return removeElementAtIndex(textLines, index).join('\n')
+    case 'INSERT_EMPTY_LINE':
+      const idx = action.mutation.lineNum - 1
+      return insertEmptyLineAtIndex(textLines, idx).join('\n')
+    case 'TYPE_CHARACTER':
+      return utils
+        .insertCharacterAtIndex(textLines, action.character, action.index)
+        .join('\n')
+    case 'INSERT_LINE':
+      return state
     default:
       return state
   }

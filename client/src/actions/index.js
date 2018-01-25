@@ -8,11 +8,8 @@ const applyMutation = (mutation, dispatch) => {
 
 export const handleMutations = () => (dispatch, getState) => {
   const mutations = patch.parse(getState().patch)
-
   utils.eachMutationPromise(mutations, applyMutation, dispatch)
 }
-
-
 
 const removeLine = (mutation, dispatch) => {
   return new Promise(resolve => {
@@ -25,7 +22,6 @@ const removeLine = (mutation, dispatch) => {
   })
 }
 
-
 const typeCharacter = (character, index, dispatch) => {
   return new Promise(resolve => {
     const type = () => {
@@ -37,7 +33,7 @@ const typeCharacter = (character, index, dispatch) => {
 }
 
 const insertLine = (mutation, dispatch) => {
-  dispatch({type: 'INSERT_EMPTY_LINE', mutation})
+  dispatch({ type: 'INSERT_EMPTY_LINE', mutation })
   const index = mutation.lineNum - 1
   return utils.eachPromise(mutation.text, typeCharacter, index, dispatch)
 }
