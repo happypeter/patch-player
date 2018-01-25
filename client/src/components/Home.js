@@ -7,7 +7,7 @@ const socket = io('http://localhost:3002')
 class Home extends Component {
   componentDidMount() {
     socket.on('git commits', data => {
-      console.log('git commits', data)
+      console.log('git commits', data.commits)
     })
   }
   render() {
