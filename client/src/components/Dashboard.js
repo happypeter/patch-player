@@ -6,11 +6,7 @@ const socket = io('http://localhost:3002')
 class Dashboard extends Component {
   // TODO: 选择项目，项目文件夹传递给后端 express 代码
   // TODO: 启动/暂停代码播放
-  componentDidMount() {
-    socket.on('git commits', data => {
-      console.log('git commits', data)
-    })
-  }
+
   handleClick = (e) => {
     socket.emit('repo', {repo: 'patch-typist'})
   }
