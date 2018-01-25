@@ -1,3 +1,5 @@
+import * as utils from '../utils'
+
 const initialState = `import styled from 'styled-components'
  import Typist from '../typist/Typist'
  import io from 'socket.io-client'
@@ -52,6 +54,8 @@ const file = (state = initialState, action) => {
       case 'INSERT_EMPTY_LINE':
         const idx = action.mutation.lineNum - 1
         return insertEmptyLineAtIndex(textLines, idx).join('\n')
+      case 'TYPE_CHARACTER':
+        return utils.insertCharacterAtIndex(textLines, action.character, action.index).join('\n')
       case 'INSERT_LINE':
         return state
     default:

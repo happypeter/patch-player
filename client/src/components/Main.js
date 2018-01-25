@@ -44,30 +44,9 @@ class Main extends Component {
     })
   }
 
-  typeCharacter = (character, index) => {
-    return new Promise(resolve => {
-      let textLines = utils.insertCharacterAtIndex(
-        this.state.textLines,
-        character,
-        index
-      )
-      this.setState({ textLines }, () => {
-        const delay = 100
-        setTimeout(resolve, delay)
-      })
-    })
-  }
 
-  insertLine = mutation => {
-    const { textLines } = this.props
-    let index = mutation.lineNum - 1
-    const newTextLines = utils.insertEmptyLineAtIndex(textLines, index)
-    this.setState({
-      textLines: newTextLines
-    })
-    // 先开辟出新行来，然后在下面的代码中在新的空白行中逐渐添加字符
-    return utils.eachPromise(mutation.text, this.typeCharacter, index)
-  }
+
+  
 
   insertOneLine = mutation => {
     this.props.insertLine(mutation)
@@ -97,7 +76,8 @@ class Main extends Component {
       return React.createElement('div', props, t)
     })
     const mutations = patch.parse(this.props.patch)
-    console.log(mutations)
+    const mutation = { type: "ADD", text: "billie", lineNum: 3 }
+    console.log(mutations[3])
     return (
       <div>
         {innerTree}
@@ -105,7 +85,7 @@ class Main extends Component {
         <button onClick={() => this.remove2Line(mutations.slice(0, 2))} >
           handleMutations
         </button>
-        <button onClick={() => this.insertOneLine(mutations[3])} >
+        <button onClick={() => this.insertOneLine(mutation)} >
           insert line
         </button>
       </div>
