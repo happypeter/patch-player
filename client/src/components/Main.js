@@ -80,6 +80,10 @@ class Main extends Component {
     utils.eachMutationPromise(mutations, this.applyMutation)
   }
 
+  remove2Line = mutations => {
+    utils.eachMutationPromise(mutations, this.props.removeLine)
+  }
+
   render() {
     console.log('this.props.textLines..', this.props.textLines)
     const { textLines } = this.props
@@ -95,7 +99,7 @@ class Main extends Component {
       <div>
         {innerTree}
         {/* <button onClick={() => this.handleMutations(mutations)}> */}
-        <button onClick={() => this.props.removeLine(mutations[0])} >
+        <button onClick={() => this.remove2Line(mutations.slice(0, 2))} >
           handleMutations
         </button>
       </div>
