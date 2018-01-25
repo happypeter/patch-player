@@ -17,16 +17,12 @@ export const insertEmptyLineAtIndex = (arr, index) => {
 }
 
 export const insertCharacterAtIndex = (arr, char, index) => {
-  console.log('index----', index)
   const result = arr.map((t, i) => {
     if (i === index) {
-      console.log('i===index', i === index)
-      console.log('char....', char)
       return t + char
     }
     return t
   })
-  console.log('insertFun......', result)
   return result
 }
 
