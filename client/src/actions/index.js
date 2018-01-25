@@ -18,7 +18,7 @@ const typeCharacter = (character, index, dispatch) => {
       dispatch({ type: 'TYPE_CHARACTER', character, index })
       resolve()
     }
-    setTimeout(type, 1000)
+    setTimeout(type, 20)
   })
 }
 
