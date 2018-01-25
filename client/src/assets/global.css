@@ -1,0 +1,9 @@
+code {
+  display: block;
+}
+.keyword {
+  color: #00bcd4;
+}
+.token.string {
+  color: #ff4081;
+}
