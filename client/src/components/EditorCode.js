@@ -2,12 +2,8 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 class Code extends Component {
-  render () {
-    return (
-      <Wrap>
-        {this.props.children}
-      </Wrap>
-    )
+  render() {
+    return <Wrap>{this.props.children}</Wrap>
   }
 }
 
@@ -17,7 +13,7 @@ const Wrap = styled.div`
   code {
     display: block;
   }
-  
+
   .keyword {
     color: #00bcd4;
   }

@@ -3,7 +3,6 @@ import Editor from './Editor'
 import '../assets/global.css'
 
 class Main extends Component {
-
   render() {
     const { textLines } = this.props
     return (

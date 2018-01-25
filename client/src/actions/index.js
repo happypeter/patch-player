@@ -4,7 +4,8 @@ import * as mutationTypes from '../constants/MutationTypes'
 import * as actionTypes from '../constants/ActionTypes'
 
 const applyMutation = (mutation, dispatch) => {
-  if (mutation.type === mutationTypes.DELETE) return removeLine(mutation, dispatch)
+  if (mutation.type === mutationTypes.DELETE)
+    return removeLine(mutation, dispatch)
   return insertLine(mutation, dispatch)
 }
 

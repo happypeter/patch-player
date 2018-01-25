@@ -9,7 +9,7 @@ class HighLight extends Component {
     Prism.highlightAll()
   }
 
-  render () {
+  render() {
     const props = {
       className: 'language-jsx'
     }
@@ -19,9 +19,7 @@ class HighLight extends Component {
     })
     return (
       <Wrap>
-        <CodeStyle>
-          {innerTree}
-        </CodeStyle>
+        <CodeStyle>{innerTree}</CodeStyle>
       </Wrap>
     )
   }
