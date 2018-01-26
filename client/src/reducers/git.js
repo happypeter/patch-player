@@ -5,7 +5,8 @@ const initialState = {
   commits: [],
   commit: '',
   files: [],
-  changedFiles: []
+  changedFiles: [],
+  file: ''
 }
 
 const git = (state = initialState, action) => {
@@ -21,6 +22,11 @@ const git = (state = initialState, action) => {
         ...state,
         files: action.data.files,
         changedFiles: action.data.changedFiles
+      }
+    case actionTypes.SELECT_FILE:
+      return {
+        ...state,
+        file: action.file
       }
     default:
       return state

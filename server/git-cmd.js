@@ -15,6 +15,27 @@ exports.diffTree = (data) => {
   return cmd(args, data.repo)
 }
 
+exports.showFilePatch = (data) => {
+  // K 表示在版本中没有变动的文件
+  if (data.status === 'K') return
+  const args = ['show', '--pretty=format:%b', data.commit, '--', data.file]
+  return cmd(args, data.repo)
+}
+
+exports.showFileContent = (data) => {
+  let args = []
+  // A 表示新建的文件
+  if (data.status === 'A') return
+  // M 表示更改的文件
+  if (data.status === 'M') {
+    args = ['show', `${data.commit}^:${data.file}`]
+  } else if (data.status === 'K') {
+    args = ['show', `${data.commit}:${data.file}`]
+  }
+
+  return cmd(args, data.repo)
+}
+
 const cmd = (args, repo, fn) => {
   return new Promise((resolve, reject) => {
     let stdout = ''

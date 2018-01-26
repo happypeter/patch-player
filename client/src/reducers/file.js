@@ -30,10 +30,12 @@ const initialState = `import styled from 'styled-components'
          if (!exist) {
 `
 
-const file = (state = initialState, action) => {
+const file = (state = '', action) => {
   const textLines = state.split('\n')
 
   switch (action.type) {
+    case types.SET_FILE:
+      return action.file
     case types.ADD_DELETE_HINT:
       return textLines
         .map((t, i) => {

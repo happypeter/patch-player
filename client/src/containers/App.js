@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Main from '../components/Main'
-import { loadCommits, loadCommitFiles } from '../actions/git'
+import { loadCommits, loadCommitFiles, loadFileAndPatch } from '../actions/git'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3002')
 
@@ -14,18 +14,23 @@ class App extends Component {
     socket.on('commit files', data => {
       this.props.loadCommitFiles(data)
     })
+
+    socket.on('file content and patch', data => {
+      console.log('file content...', data.content.split('\n'))
+      console.log('file patch...', data.patch.split('\n'))
+      this.props.loadFileAndPatch(data)
+    })
   }
-  
+
   render() {
     return <Main {...this.props} />
   }
 }
 
-const mapStateToProps = state => ({
-
-})
+const mapStateToProps = state => ({})
 
 export default connect(mapStateToProps, {
   loadCommits,
-  loadCommitFiles
+  loadCommitFiles,
+  loadFileAndPatch
 })(App)

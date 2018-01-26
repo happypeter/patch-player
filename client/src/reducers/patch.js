@@ -1,3 +1,5 @@
+import * as types from '../constants/ActionTypes'
+
 const initialState = `@@ -2,7 +2,7 @@ import React, { Component } from 'react'
  import styled from 'styled-components'
 +import Typist from '../typist/Typist'
@@ -19,7 +21,12 @@ const initialState = `@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 `
 
 const patch = (state = initialState, action) => {
-  return state
+  switch (action.type) {
+    case types.SET_PATCH:
+      return action.patch
+    default:
+      return state
+  }
 }
 
 export default patch

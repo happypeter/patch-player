@@ -43,6 +43,24 @@ io.on('connection', socket => {
         console.log(error)
       })
   })
+
+  socket.on('file', source => {
+    console.log('source....', source)
+    Promise.all([
+      git.showFileContent(source),
+      git.showFilePatch(source)
+    ])
+      .then(result => {
+        const content = result[0]
+        socket.broadcast.emit('file content and patch', {
+          content,
+          patch: result[1].split('\n').slice(5).join('\n')
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  })
 })
 
 server.listen(3002, () => {

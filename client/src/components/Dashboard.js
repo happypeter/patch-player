@@ -23,7 +23,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { commits, repo, files, changedFiles } = this.props.git
+    const { commits, repo, files, changedFiles, commit } = this.props.git
     return (
       <Wrap>
         <Input value={this.state.repo} onChange={this.handlePathChange} />
@@ -34,7 +34,13 @@ class Dashboard extends Component {
             repo={repo}
             selectCommit={this.props.selectCommit}
           />
-          <FileList files={files} changedFiles={changedFiles} />
+          <FileList
+            commit={commit}
+            repo={repo}
+            files={files}
+            changedFiles={changedFiles}
+            selectFile={this.props.selectFile}
+          />
         </Content>
       </Wrap>
     )

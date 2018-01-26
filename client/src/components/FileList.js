@@ -8,11 +8,13 @@ class FileList extends Component {
 
   handleClick = (file, status, index) => {
     this.setState({ selectedId: index })
-    // socket.emit('file', { file, status, commit, repo })
+    const { commit, repo } = this.props
+    this.props.selectFile({ file, status, commit: commit.slice(0, 7), repo })
   }
 
   render() {
     const { changedFiles, files } = this.props
+    console.log('files....', files[0])
     const fileList = files.map((file, index) => {
       const result = changedFiles.find(item => item.file === file)
       if (result) {
