@@ -9,6 +9,12 @@ class Dashboard extends Component {
   state = {
     repo: ''
   }
+  
+  componentDidMount() {
+    socket.on('git commits', data => {
+      this.props.loadCommits(data.commits)
+    })
+  }
 
   handlePathChange = e => {
     this.setState({
@@ -24,13 +30,13 @@ class Dashboard extends Component {
       repo: ''
     })
   }
-  render () {
+
+  render() {
+    console.log('Dashboard commits....', this.props.commits)
     return (
       <Wrap>
         <input value={this.state.repo} onChange={this.handlePathChange} />
         <button onClick={this.handleSubmit}>提交</button>
-        <button onClick={this.props.setProjectPath}> 选择项目
-        </button>
       </Wrap>
     )
   }
