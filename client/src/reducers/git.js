@@ -5,19 +5,23 @@ const initialState = {
   commits: [],
   commit: '',
   files: [],
-  changed: []
+  changedFiles: []
 }
 
 const git = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case actionTypes.LOAD_COMMITS:
       return { ...state, commits: action.commits }
     case actionTypes.SET_REPO:
       return { ...state, repo: action.repo }
     case actionTypes.SELECT_COMMIT:
-      return { ...state, commit: action.commit}
+      return { ...state, commit: action.commit }
     case actionTypes.LOAD_COMMIT_FILES:
-      return { ...state, files: action.data.files, changed: action.data.changed}
+      return {
+        ...state,
+        files: action.data.files,
+        changedFiles: action.data.changedFiles
+      }
     default:
       return state
   }

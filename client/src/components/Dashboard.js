@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import CommitList from './CommitList'
+import FileList from './FileList'
 
 class Dashboard extends Component {
   // TODO: 选择项目，项目文件夹传递给后端 express 代码
   // TODO: 启动/暂停代码播放
-  
+
   state = {
     repo: this.props.git.repo
   }
@@ -22,12 +23,19 @@ class Dashboard extends Component {
   }
 
   render() {
-    const {commits, repo, files, changed} = this.props.git
+    const { commits, repo, files, changedFiles } = this.props.git
     return (
       <Wrap>
         <Input value={this.state.repo} onChange={this.handlePathChange} />
         <button onClick={this.handleSubmit}>提交</button>
-        <CommitList commits={commits} repo={repo} selectCommit={this.props.selectCommit} />
+        <Content>
+          <CommitList
+            commits={commits}
+            repo={repo}
+            selectCommit={this.props.selectCommit}
+          />
+          <FileList files={files} changedFiles={changedFiles} />
+        </Content>
       </Wrap>
     )
   }
@@ -39,4 +47,8 @@ const Wrap = styled.div``
 
 const Input = styled.input`
   width: 300px;
+`
+
+const Content = styled.div`
+  display: flex;
 `
