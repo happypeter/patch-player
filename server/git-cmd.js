@@ -5,6 +5,16 @@ exports.log = repo => {
   return cmd(args, repo)
 }
 
+exports.lsTree = (data) => {
+  const args = ['ls-tree', '--name-only', '-r', data.commit]
+  return cmd(args, data.repo)
+}
+
+exports.diffTree = (data) => {
+  const args = ['diff-tree', '--name-status', '--no-commit-id', '-r', data.commit]
+  return cmd(args, data.repo)
+}
+
 const cmd = (args, repo, fn) => {
   return new Promise((resolve, reject) => {
     let stdout = ''

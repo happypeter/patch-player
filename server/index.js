@@ -18,6 +18,31 @@ io.on('connection', socket => {
         socket.broadcast.emit('git commits', {commits: result.split('\n')})
       })
   })
+
+  socket.on('commit', source => {
+    console.log('commit...', source)
+    Promise.all([
+      git.lsTree(source),
+      git.diffTree(source)
+    ])
+      .then(result => {
+        let changed = []
+        if (result[1]) {
+          changed = result[1].trim().split('\n').map(item => {
+            const arr = item.split(/\s/)
+            return { status: arr[0], file: arr[1] }
+          })
+        }
+        
+        socket.broadcast.emit('commit files', {
+          files: result[0].split('\n'),
+          changed
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  })
 })
 
 server.listen(3002, () => {

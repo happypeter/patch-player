@@ -22,11 +22,12 @@ class Dashboard extends Component {
   }
 
   render() {
+    const {commits, repo, files, changed} = this.props.git
     return (
       <Wrap>
         <Input value={this.state.repo} onChange={this.handlePathChange} />
         <button onClick={this.handleSubmit}>提交</button>
-        <CommitList commits={this.props.git.commits} />
+        <CommitList commits={commits} repo={repo} selectCommit={this.props.selectCommit} />
       </Wrap>
     )
   }
