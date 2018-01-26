@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import CommitList from './CommitList'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3002')
 
@@ -18,7 +19,7 @@ class Dashboard extends Component {
 
   handlePathChange = e => {
     this.setState({
-      repo: e.target.value
+      repo: e.target.value.trim()
     })
   }
 
@@ -32,11 +33,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log('Dashboard commits....', this.props.commits)
     return (
       <Wrap>
         <input value={this.state.repo} onChange={this.handlePathChange} />
         <button onClick={this.handleSubmit}>提交</button>
+        <CommitList commits={this.props.commits} />
       </Wrap>
     )
   }
