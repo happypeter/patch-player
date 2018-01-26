@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import CommitList from './CommitList'
-import socket from '../utils/socket'
 
 class Dashboard extends Component {
   // TODO: 选择项目，项目文件夹传递给后端 express 代码
@@ -9,12 +8,6 @@ class Dashboard extends Component {
   
   state = {
     repo: this.props.git.repo
-  }
-  
-  componentDidMount() {
-    socket.on('git commits', data => {
-      this.props.loadCommits(data.commits)
-    })
   }
 
   handlePathChange = e => {
@@ -26,7 +19,6 @@ class Dashboard extends Component {
     e.preventDefault()
     const { repo } = this.state
     this.props.setRepo(repo.trim())
-    this.setState({ repo: '' })
   }
 
   render() {
