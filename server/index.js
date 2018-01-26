@@ -8,6 +8,7 @@ const git = require('./git-cmd')
 
 io.on('connection', socket => {
   socket.on('repo', data => {
+    console.log(data.repo)
     const repo = data.repo
     git.log(repo)
       .then(result => {

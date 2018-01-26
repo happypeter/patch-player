@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import CommitList from './CommitList'
-import io from 'socket.io-client'
-const socket = io('http://localhost:3002')
+import socket from '../utils/socket'
 
 class Dashboard extends Component {
   // TODO: 选择项目，项目文件夹传递给后端 express 代码
   // TODO: 启动/暂停代码播放
+  
   state = {
-    repo: ''
+    repo: this.props.git.repo
   }
   
   componentDidMount() {
@@ -18,26 +18,23 @@ class Dashboard extends Component {
   }
 
   handlePathChange = e => {
-    this.setState({
-      repo: e.target.value.trim()
-    })
+    const repo = e.target.value
+    this.setState({ repo })
   }
 
   handleSubmit = e => {
     e.preventDefault()
     const { repo } = this.state
-    socket.emit('repo', { repo })
-    this.setState({
-      repo: ''
-    })
+    this.props.setRepo(repo.trim())
+    this.setState({ repo: '' })
   }
 
   render() {
     return (
       <Wrap>
-        <input value={this.state.repo} onChange={this.handlePathChange} />
+        <Input value={this.state.repo} onChange={this.handlePathChange} />
         <button onClick={this.handleSubmit}>提交</button>
-        <CommitList commits={this.props.commits} />
+        <CommitList commits={this.props.git.commits} />
       </Wrap>
     )
   }
@@ -46,3 +43,7 @@ class Dashboard extends Component {
 export default Dashboard
 
 const Wrap = styled.div``
+
+const Input = styled.input`
+  width: 300px;
+`
