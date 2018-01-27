@@ -7,6 +7,7 @@ import { getTextLines } from '../selectors'
 const HomeContainer = props => <Home {...props} />
 
 const mapStateToProps = state => ({
+  file: state.git.file,
   patch: state.patch,
   textLines: getTextLines(state)
 })

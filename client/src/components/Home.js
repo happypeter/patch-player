@@ -4,10 +4,10 @@ import Editor from './Editor'
 
 class Home extends Component {
   render() {
-    const { textLines } = this.props
-
+    const { textLines, file } = this.props
     return (
       <Wrap>
+        <div>{this.props.file}</div>
         <Editor textLines={textLines} />
         <button onClick={() => this.props.handleMutations()}>mutations</button>
       </Wrap>

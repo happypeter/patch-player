@@ -48,7 +48,8 @@ io.on('connection', socket => {
         console.log(result[1])
         const content = socket.broadcast.emit('file content and patch', {
           content: result[0],
-          patch: result[1]
+          patch: result[1],
+          file: source.file
         })
       })
       .catch(error => {
