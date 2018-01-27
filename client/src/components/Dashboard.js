@@ -26,8 +26,10 @@ class Dashboard extends Component {
     const { commits, repo, files, changedFiles, commit } = this.props.git
     return (
       <Wrap>
-        <Input value={this.state.repo} onChange={this.handlePathChange} />
-        <button onClick={this.handleSubmit}>提交</button>
+        <Form onSubmit={this.handleSubmit}>
+          <Input value={this.state.repo} onChange={this.handlePathChange} />
+          <Button type="submit">提交</Button>
+        </Form>
         <Content>
           <CommitList
             commits={commits}
@@ -49,12 +51,45 @@ class Dashboard extends Component {
 
 export default Dashboard
 
-const Wrap = styled.div``
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`
+
+const Form = styled.form`
+  height: 100px;
+  background-color: #00bcd4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+`
 
 const Input = styled.input`
-  width: 300px;
+  width: 450px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+`
+
+const Button = styled.button`
+  width: 60px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #f3b661;
+  color: #212121;
+  font-size: 14px;
+  margin-left: 8px;
+  flex-shrink: 0;
 `
 
 const Content = styled.div`
   display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow-y: hidden;
 `
