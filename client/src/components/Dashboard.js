@@ -85,6 +85,7 @@ const Button = styled.button`
   font-size: 14px;
   margin-left: 8px;
   flex-shrink: 0;
+  cursor: pointer;
 `
 
 const Content = styled.div`
