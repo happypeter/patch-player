@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import CommitList from './CommitList'
 import FileList from './FileList'
+import Patch from './Patch'
 
 class Dashboard extends Component {
   // TODO: 选择项目，项目文件夹传递给后端 express 代码
@@ -43,6 +44,7 @@ class Dashboard extends Component {
             changedFiles={changedFiles}
             selectFile={this.props.selectFile}
           />
+          <Patch patch={this.props.patch} />
         </Content>
       </Wrap>
     )

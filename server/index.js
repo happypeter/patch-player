@@ -10,28 +10,26 @@ io.on('connection', socket => {
   socket.on('repo', data => {
     console.log(data.repo)
     const repo = data.repo
-    git.log(repo)
-      .then(result => {
-        if (!result) {
-          console.log('no commits')
-        }
-        socket.broadcast.emit('git commits', { commits: result.split('\n') })
-      })
+    git.log(repo).then(result => {
+      if (!result) {
+        console.log('no commits')
+      }
+      socket.broadcast.emit('git commits', { commits: result.split('\n') })
+    })
   })
 
   socket.on('commit', source => {
-    console.log('commit...', source)
-    Promise.all([
-      git.lsTree(source),
-      git.diffTree(source)
-    ])
+    Promise.all([git.lsTree(source), git.diffTree(source)])
       .then(result => {
         let changedFiles = []
         if (result[1]) {
-          changedFiles = result[1].trim().split('\n').map(item => {
-            const arr = item.split(/\s/)
-            return { status: arr[0], file: arr[1] }
-          })
+          changedFiles = result[1]
+            .trim()
+            .split('\n')
+            .map(item => {
+              const arr = item.split(/\s/)
+              return { status: arr[0], file: arr[1] }
+            })
         }
 
         socket.broadcast.emit('commit files', {
@@ -45,16 +43,12 @@ io.on('connection', socket => {
   })
 
   socket.on('file', source => {
-    console.log('source....', source)
-    Promise.all([
-      git.showFileContent(source),
-      git.showFilePatch(source)
-    ])
+    Promise.all([git.showFileContent(source), git.showFilePatch(source)])
       .then(result => {
-        const content = result[0]
-        socket.broadcast.emit('file content and patch', {
-          content,
-          patch: result[1].split('\n').slice(5).join('\n')
+        console.log(result[1])
+        const content = socket.broadcast.emit('file content and patch', {
+          content: result[0],
+          patch: result[1]
         })
       })
       .catch(error => {

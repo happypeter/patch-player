@@ -16,8 +16,6 @@ class App extends Component {
     })
 
     socket.on('file content and patch', data => {
-      console.log('file content...', data.content.split('\n'))
-      console.log('file patch...', data.patch.split('\n'))
       this.props.loadFileAndPatch(data)
     })
   }

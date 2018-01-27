@@ -6,7 +6,7 @@ import { setRepo, selectCommit, selectFile } from '../actions/git'
 
 const DashboardContainer = props => <Dashboard {...props} />
 
-const mapStateToProps = state => ({ git: state.git })
+const mapStateToProps = state => ({ git: state.git, patch: state.patch })
 
 export default connect(mapStateToProps, {
   setProjectPath,

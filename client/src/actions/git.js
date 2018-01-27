@@ -1,5 +1,6 @@
 import * as actionTypes from '../constants/ActionTypes'
 import socket from '../utils/socket'
+import { removePatchMetadata } from '../utils/patch'
 
 export const loadCommits = commits => dispatch => {
   dispatch({ type: actionTypes.LOAD_COMMITS, commits })
@@ -21,7 +22,10 @@ export const selectFile = data => dispatch => {
 
 export const loadFileAndPatch = data => dispatch => {
   dispatch({ type: actionTypes.SET_FILE, file: data.content })
-  dispatch({ type: actionTypes.SET_PATCH, patch: data.patch })
+  dispatch({
+    type: actionTypes.SET_PATCH,
+    patch: removePatchMetadata(data.patch)
+  })
 }
 
 export const setRepo = repo => dispatch => {

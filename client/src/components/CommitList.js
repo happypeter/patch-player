@@ -36,6 +36,7 @@ export default CommitList
 const Wrap = styled.div`
   background-color: #efefef;
   overflow-y: auto;
+  flex-shrink: 0;
 `
 
 const Commit = styled.div`

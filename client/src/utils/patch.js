@@ -71,3 +71,50 @@ const getOffSet = hunkMutaionArr => {
     return offSet
   }, 0)
 }
+
+function escape(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\t/g, '  ')
+}
+
+export const markupPatch = patch => {
+  let classes = {
+    d: 'file',
+    i: 'file',
+    '@': 'info',
+    '-': 'delete',
+    '+': 'insert',
+    ' ': 'context'
+  }
+
+  let tmp = []
+  let marker = false
+  let idx
+  patch.split('\n').forEach((line, index) => {
+    let type = line.charAt(0)
+    if (type === '@' && marker === false) {
+      marker = true
+      idx = index
+    }
+    tmp.push("<pre class='" + classes[type] + "'>" + escape(line) + '</pre>')
+  })
+  return tmp.slice(idx).join('\n')
+}
+
+export const removePatchMetadata = patch => {
+  const arr = patch.split('\n')
+  let index = 0
+  for (let i = 0; i < arr.length; i++) {
+    let type = arr[i].charAt(0)
+    let marker = false
+    if (type === '@' && marker === false) {
+      marker = true
+      index = i
+      break
+    }
+  }
+  return arr.slice(index).join('\n')
+}
