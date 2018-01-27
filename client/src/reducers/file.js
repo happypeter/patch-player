@@ -1,35 +1,6 @@
 import * as utils from '../utils'
 import * as types from '../constants/ActionTypes'
 
-const initialState = `import styled from 'styled-components'
- import Typist from '../typist/Typist'
- import io from 'socket.io-client'
- import Prism from 'prismjs'
- import 'prismjs/components/prism-javascript'
- import 'prismjs/components/prism-markup'
- import 'prismjs/components/prism-jsx'
- dsds
- sdsd
- sd
- sd
- sd
- sds
- ds
- d
- d
- d
- d
- d
- d
-   componentDidMount = () => {
-     const socket = io(SERVER_URL);
-    socket.on('file content and patch', data => {
-      const {files, commit} = this.state
-       if (commit === data.commit) {
-         const exist = files.find(file => file.name === data.file.name)
-         if (!exist) {
-`
-
 const file = (state = '', action) => {
   const textLines = state.split('\n')
 
