@@ -4,15 +4,15 @@ import Editor from './Editor'
 
 class Home extends Component {
   render() {
-    const { textLines, file } = this.props
+    const { file, fileName } = this.props
     return (
       <Wrap>
         <Content>
           <FileTabs>
-            <FileTab>{this.props.file}</FileTab>
+            <FileTab>{fileName}</FileTab>
           </FileTabs>
           <Button onClick={() => this.props.handleMutations()}>开始打印</Button>
-          <Editor textLines={textLines} />
+          <Editor file={file} />
         </Content>
       </Wrap>
     )
@@ -68,4 +68,5 @@ const Button = styled.button`
   margin-bottom: 16px;
   cursor: pointer;
   font-size: 16px;
+  flex-shrink: 0;
 `

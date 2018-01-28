@@ -10,16 +10,9 @@ class HighLight extends Component {
   }
 
   render() {
-    const props = {
-      className: 'language-jsx'
-    }
-    const innerTree = this.props.textLines.map((t, i) => {
-      props.key = Math.random()
-      return React.createElement('code', props, t)
-    })
     return (
       <Wrap>
-        <CodeStyle>{innerTree}</CodeStyle>
+        <CodeStyle>{this.props.file}</CodeStyle>
       </Wrap>
     )
   }
