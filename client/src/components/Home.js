@@ -11,9 +11,7 @@ class Home extends Component {
           <FileTabs>
             <FileTab>{this.props.file}</FileTab>
           </FileTabs>
-          <button onClick={() => this.props.handleMutations()}>
-            mutations
-          </button>
+          <Button onClick={() => this.props.handleMutations()}>开始打印</Button>
           <Editor textLines={textLines} />
         </Content>
       </Wrap>
@@ -59,4 +57,15 @@ const FileTab = styled.div`
   &:first-child {
     margin-left: 0;
   }
+`
+
+const Button = styled.button`
+  width: 200px;
+  height: 48px;
+  color: #212121;
+  background-color: #f3b661;
+  border: none;
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-size: 16px;
 `
