@@ -11,6 +11,9 @@ export default Code
 
 const Wrap = styled.div`
   code {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol';
     display: block;
   }
 

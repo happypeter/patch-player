@@ -27,4 +27,12 @@ class HighLight extends Component {
 
 export default HighLight
 
-const Wrap = styled.div``
+const Wrap = styled.div`
+  background: #1d1f27;
+  font-size: 14px;
+  overflow: auto;
+  padding: 16px;
+  line-height: 1.8;
+  flex-grow: 1;
+  color: #fff;
+`
