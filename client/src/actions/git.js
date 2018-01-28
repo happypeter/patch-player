@@ -21,11 +21,15 @@ export const selectFile = data => dispatch => {
 }
 
 export const loadFileAndPatch = data => dispatch => {
-  dispatch({ type: actionTypes.SET_FILE, file: data.content })
-  dispatch({
-    type: actionTypes.SET_PATCH,
-    patch: removePatchMetadata(data.patch)
-  })
+  if (data.content) {
+    dispatch({ type: actionTypes.SET_FILE, file: data.content })
+  }
+  if (data.patch) {
+    dispatch({
+      type: actionTypes.SET_PATCH,
+      patch: removePatchMetadata(data.patch)
+    })
+  }
   // Home 页从 store 中获取所展示文件的文件名
   dispatch({ type: actionTypes.SELECT_FILE, file: data.file })
 }
