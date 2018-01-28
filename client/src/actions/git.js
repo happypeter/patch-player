@@ -9,6 +9,7 @@ export const loadCommits = commits => dispatch => {
 export const selectCommit = (commit, repo) => dispatch => {
   socket.emit('commit', { commit: commit.slice(0, 7), repo })
   dispatch({ type: actionTypes.SELECT_COMMIT, commit })
+  dispatch({ type: actionTypes.SET_PATCH, patch: '' })
 }
 
 export const loadCommitFiles = data => dispatch => {
@@ -18,6 +19,7 @@ export const loadCommitFiles = data => dispatch => {
 export const selectFile = data => dispatch => {
   socket.emit('file', data)
   dispatch({ type: actionTypes.SELECT_FILE, file: data.file })
+  dispatch({ type: actionTypes.SET_PATCH, patch: '' })
 }
 
 export const loadFileAndPatch = data => dispatch => {

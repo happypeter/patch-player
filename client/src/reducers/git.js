@@ -16,7 +16,7 @@ const git = (state = initialState, action) => {
     case actionTypes.SET_REPO:
       return { ...state, repo: action.repo }
     case actionTypes.SELECT_COMMIT:
-      return { ...state, commit: action.commit }
+      return { ...state, commit: action.commit, file: '' }
     case actionTypes.LOAD_COMMIT_FILES:
       return {
         ...state,

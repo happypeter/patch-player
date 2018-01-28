@@ -37,13 +37,7 @@ class Dashboard extends Component {
             repo={repo}
             selectCommit={this.props.selectCommit}
           />
-          <FileList
-            commit={commit}
-            repo={repo}
-            files={files}
-            changedFiles={changedFiles}
-            selectFile={this.props.selectFile}
-          />
+          <FileList git={this.props.git} selectFile={this.props.selectFile} />
           <Patch patch={this.props.patch} />
         </Content>
       </Wrap>

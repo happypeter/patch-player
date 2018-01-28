@@ -2,26 +2,20 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 class FileList extends Component {
-  state = {
-    selectedId: ''
-  }
-
   handleClick = (file, status, index) => {
-    this.setState({ selectedId: index })
-    const { commit, repo } = this.props
+    const { commit, repo } = this.props.git
     this.props.selectFile({ file, status, commit: commit.slice(0, 7), repo })
   }
 
   render() {
-    const { changedFiles, files } = this.props
-    console.log('files....', files[0])
+    const { changedFiles, files } = this.props.git
     const fileList = files.map((file, index) => {
       const result = changedFiles.find(item => item.file === file)
       if (result) {
         return (
           <Changed
             key={index}
-            active={index === this.state.selectedId}
+            active={file === this.props.git.file}
             onClick={() => {
               this.handleClick(file, result.status, index)
             }}
@@ -33,7 +27,7 @@ class FileList extends Component {
       return (
         <Unchanged
           key={index}
-          active={index === this.state.selectedId}
+          active={file === this.props.git.file}
           onClick={() => {
             this.handleClick(file, 'K', index)
           }}
