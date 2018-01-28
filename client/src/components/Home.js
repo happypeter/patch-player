@@ -11,8 +11,8 @@ class Home extends Component {
           <FileTabs>
             <FileTab>{fileName}</FileTab>
           </FileTabs>
-          <Button onClick={() => this.props.handleMutations()}>开始打印</Button>
           <Editor file={file} />
+          <Button onClick={() => this.props.handleMutations()}>开始打印</Button>
         </Content>
       </Wrap>
     )
@@ -25,8 +25,6 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  max-width: 1200px;
-  margin: 0 auto;
   background: #282a36;
   color: #f8f8f2;
 `
@@ -65,7 +63,7 @@ const Button = styled.button`
   color: #212121;
   background-color: #f3b661;
   border: none;
-  margin-bottom: 16px;
+  margin-top: 16px;
   cursor: pointer;
   font-size: 16px;
   flex-shrink: 0;
