@@ -11,7 +11,7 @@ class HighLight extends Component {
 
   render() {
     return (
-      <Wrap>
+      <Wrap id={this.props.id}>
         <CodeStyle>{this.props.file}</CodeStyle>
       </Wrap>
     )
