@@ -23,6 +23,7 @@ export const selectFile = data => dispatch => {
 }
 
 export const loadFileAndPatch = data => dispatch => {
+  dispatch({ type: actionTypes.SCROLL_TOP })
   if (data.content) {
     dispatch({ type: actionTypes.SET_FILE, file: data.content })
   }

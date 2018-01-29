@@ -8,7 +8,8 @@ const HomeContainer = props => <Home {...props} />
 const mapStateToProps = state => ({
   fileName: state.git.file,
   patch: state.patch,
-  file: state.file
+  file: state.file,
+  position: state.position
 })
 
 export default connect(mapStateToProps, {

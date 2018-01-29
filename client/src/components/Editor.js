@@ -3,15 +3,24 @@ import styled from 'styled-components'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-jsx'
 import CodeStyle from './EditorCode'
+import { animateScroll as scroll } from 'react-scroll'
 
 class HighLight extends Component {
   componentDidUpdate() {
     Prism.highlightAll()
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.position.offset !== this.props.position.offset) {
+      scroll.scrollMore(nextProps.position.toY, {
+        containerId: 'scroll-container'
+      })
+    }
+  }
+
   render() {
     return (
-      <Wrap id={this.props.id}>
+      <Wrap id="scroll-container">
         <CodeStyle>{this.props.file}</CodeStyle>
       </Wrap>
     )

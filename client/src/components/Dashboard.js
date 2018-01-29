@@ -24,7 +24,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { commits, repo, files, changedFiles, commit } = this.props.git
+    const { commits, repo } = this.props.git
     return (
       <Wrap>
         <Form onSubmit={this.handleSubmit}>

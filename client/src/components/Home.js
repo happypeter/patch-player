@@ -1,33 +1,18 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Editor from './Editor'
-import { animateScroll as scroll } from 'react-scroll'
 
 class Home extends Component {
-  scrollToBottom = () => {
-    scroll.scrollMore(34 * 20, { containerId: 'scroll-container' })
-  }
-
-  scrollToTop = () => {
-    scroll.scrollMore(-34 * 20, { containerId: 'scroll-container' })
-  }
-
   render() {
-    const { file, fileName } = this.props
+    const { file, fileName, position } = this.props
     return (
       <Wrap>
         <Content>
           <FileTabs>
             <FileTab>{fileName}</FileTab>
           </FileTabs>
-          <Editor file={file} id="scroll-container" />
-          <Actions>
-            <Button onClick={() => this.props.handleMutations()}>
-              开始打印
-            </Button>
-            <Button onClick={this.scrollToBottom}>向下滚动</Button>
-            <Button onClick={this.scrollToTop}>向上滚动</Button>
-          </Actions>
+          <Editor file={file} position={position} />
+          <Button onClick={() => this.props.handleMutations()}>开始打印</Button>
         </Content>
       </Wrap>
     )
@@ -72,11 +57,6 @@ const FileTab = styled.div`
   }
 `
 
-const Actions = styled.div`
-  display: flex;
-  flex-shrink: 0;
-`
-
 const Button = styled.button`
   width: 200px;
   height: 48px;
@@ -87,4 +67,5 @@ const Button = styled.button`
   cursor: pointer;
   font-size: 16px;
   margin-right: 16px;
+  flex-shrink: 0;
 `
