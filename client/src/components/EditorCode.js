@@ -25,7 +25,7 @@ const Wrap = styled.div`
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    line-height: 1.5;
+    line-height: 1.8;
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
