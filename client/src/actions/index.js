@@ -4,9 +4,13 @@ import * as mutationTypes from '../constants/MutationTypes'
 import * as actionTypes from '../constants/ActionTypes'
 
 const applyMutation = (mutation, dispatch, getState) => {
+  const toY = utils.scrollToY(mutation.lineNum, getState().position)
+  if (toY) {
+    dispatch({ type: actionTypes.SCROLL_BOTTOM, toY })
+  }
   if (mutation.type === mutationTypes.DELETE)
-    return removeLine(mutation, dispatch, getState)
-  return insertLine(mutation, dispatch, getState)
+    return removeLine(mutation, dispatch)
+  return insertLine(mutation, dispatch)
 }
 
 export const handleMutations = () => (dispatch, getState) => {
@@ -14,13 +18,8 @@ export const handleMutations = () => (dispatch, getState) => {
   utils.eachPromise(mutations, applyMutation, dispatch, getState)
 }
 
-const removeLine = (mutation, dispatch, getState) => {
+const removeLine = (mutation, dispatch) => {
   return new Promise(resolve => {
-    // fixme 下面四行封装到一个函数中
-    const toY = utils.scrollToY(mutation.lineNum, getState().position)
-    if (toY) {
-      dispatch({ type: actionTypes.SCROLL_BOTTOM, toY })
-    }
     dispatch({ type: actionTypes.ADD_DELETE_HINT, mutation })
     const deleteLine = () => {
       dispatch({ type: actionTypes.DELETE_LINE, mutation })
@@ -30,11 +29,7 @@ const removeLine = (mutation, dispatch, getState) => {
   })
 }
 
-const insertLine = (mutation, dispatch, getState) => {
-  const toY = utils.scrollToY(mutation.lineNum, getState().position)
-  if (toY) {
-    dispatch({ type: actionTypes.SCROLL_BOTTOM, toY })
-  }
+const insertLine = (mutation, dispatch) => {
   dispatch({ type: actionTypes.INSERT_EMPTY_LINE, mutation })
   const index = mutation.lineNum - 1
   return utils.eachPromise(mutation.text, typeCharacter, index, dispatch)
