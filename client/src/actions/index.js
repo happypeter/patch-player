@@ -49,10 +49,6 @@ const typeCharacter = (character, index, dispatch) => {
   })
 }
 
-export const setProjectPath = () => dispatch => {
-  dispatch({ type: 'SET_PROJECT_PATH' })
-}
-
 export const setScrollContainerHeight = height => {
   return { type: actionTypes.SET_SCROLL_CONTAINER_HEIGHT, height }
 }
