@@ -3,14 +3,24 @@ import * as patch from '../utils/patch'
 import * as mutationTypes from '../constants/MutationTypes'
 import * as actionTypes from '../constants/ActionTypes'
 
+const scroll = (mutation, dispatch, state) => {
+  return new Promise(resolve => {
+    const toY = utils.scrollToY(mutation.lineNum, state.position)
+    if (toY) {
+      dispatch({ type: actionTypes.SCROLL_BOTTOM, toY })
+      window.setTimeout(resolve, 6000)
+    } else {
+      resolve()
+    }
+  })
+}
+
 const applyMutation = (mutation, dispatch, getState) => {
-  const toY = utils.scrollToY(mutation.lineNum, getState().position)
-  if (toY) {
-    dispatch({ type: actionTypes.SCROLL_BOTTOM, toY })
-  }
-  if (mutation.type === mutationTypes.DELETE)
-    return removeLine(mutation, dispatch)
-  return insertLine(mutation, dispatch)
+  return scroll(mutation, dispatch, getState()).then(() => {
+    if (mutation.type === mutationTypes.DELETE)
+      return removeLine(mutation, dispatch)
+    return insertLine(mutation, dispatch)
+  })
 }
 
 export const handleMutations = () => (dispatch, getState) => {
