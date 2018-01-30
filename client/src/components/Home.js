@@ -11,7 +11,11 @@ class Home extends Component {
           <FileTabs>
             <FileTab>{fileName}</FileTab>
           </FileTabs>
-          <Editor file={file} position={position} />
+          <Editor
+            file={file}
+            position={position}
+            setScrollContainerHeight={this.props.setScrollContainerHeight}
+          />
           <Button onClick={() => this.props.handleMutations()}>开始打印</Button>
         </Content>
       </Wrap>

@@ -4,10 +4,9 @@ import * as mutationTypes from '../constants/MutationTypes'
 import * as actionTypes from '../constants/ActionTypes'
 
 const applyMutation = (mutation, dispatch, getState) => {
-  const offset = getState().position.offset
   if (mutation.type === mutationTypes.DELETE)
-    return removeLine(mutation, dispatch, offset)
-  return insertLine(mutation, dispatch, offset)
+    return removeLine(mutation, dispatch, getState)
+  return insertLine(mutation, dispatch, getState)
 }
 
 export const handleMutations = () => (dispatch, getState) => {
@@ -15,9 +14,9 @@ export const handleMutations = () => (dispatch, getState) => {
   utils.eachPromise(mutations, applyMutation, dispatch, getState)
 }
 
-const removeLine = (mutation, dispatch, offset) => {
+const removeLine = (mutation, dispatch, getState) => {
   return new Promise(resolve => {
-    const toY = utils.scrollToY(mutation.lineNum, offset)
+    const toY = utils.scrollToY(mutation.lineNum, getState().position)
     if (toY) {
       dispatch({ type: actionTypes.SCROLL_BOTTOM, toY })
     }
@@ -30,8 +29,8 @@ const removeLine = (mutation, dispatch, offset) => {
   })
 }
 
-const insertLine = (mutation, dispatch, offset) => {
-  const toY = utils.scrollToY(mutation.lineNum, offset)
+const insertLine = (mutation, dispatch, getState) => {
+  const toY = utils.scrollToY(mutation.lineNum, getState().position)
   if (toY) {
     dispatch({ type: actionTypes.SCROLL_BOTTOM, toY })
   }
@@ -52,4 +51,8 @@ const typeCharacter = (character, index, dispatch) => {
 
 export const setProjectPath = () => dispatch => {
   dispatch({ type: 'SET_PROJECT_PATH' })
+}
+
+export const setScrollContainerHeight = height => {
+  return { type: actionTypes.SET_SCROLL_CONTAINER_HEIGHT, height }
 }

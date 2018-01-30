@@ -6,6 +6,11 @@ import CodeStyle from './EditorCode'
 import { animateScroll as scroll } from 'react-scroll'
 
 class HighLight extends Component {
+  componentDidMount() {
+    const height = document.getElementById('scroll-container').clientHeight
+    this.props.setScrollContainerHeight(height)
+  }
+
   componentDidUpdate() {
     Prism.highlightAll()
   }
