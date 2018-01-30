@@ -27,16 +27,17 @@ export const scrollToY = (lineNum, position) => {
   const height = position.containerHeight
   const current = lineNum * 24 - offset
   if (current < height) {
-    const bottom = current + 24 * 5
-    if (bottom > height) {
-      return 500
+    const bottom = current + 240
+    if (height - bottom < 240) {
+      return Math.ceil(height / 2)
     } else {
       return 0
     }
   } else {
     const pages = Math.floor(current / height)
-    if (current % height + 24 * 5 > height) {
-      return pages * height + 500
+    const bottom = current % height + 240
+    if (height - bottom < 240) {
+      return pages * height + Math.ceil(height / 2)
     } else {
       return pages * height
     }

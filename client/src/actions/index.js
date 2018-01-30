@@ -16,6 +16,7 @@ export const handleMutations = () => (dispatch, getState) => {
 
 const removeLine = (mutation, dispatch, getState) => {
   return new Promise(resolve => {
+    // fixme 下面四行封装到一个函数中
     const toY = utils.scrollToY(mutation.lineNum, getState().position)
     if (toY) {
       dispatch({ type: actionTypes.SCROLL_BOTTOM, toY })
