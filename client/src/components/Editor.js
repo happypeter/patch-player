@@ -26,9 +26,10 @@ class HighLight extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.position.offset !== this.props.position.offset) {
-      scroll.scrollMore(nextProps.position.toY, {
+      const { toY } = nextProps.position
+      scroll.scrollMore(toY, {
         containerId: 'scroll-container',
-        duration: 3000
+        duration: 2000
       })
     }
   }
