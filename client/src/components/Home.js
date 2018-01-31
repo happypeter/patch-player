@@ -14,7 +14,7 @@ class Home extends Component {
           <Editor
             file={file}
             position={position}
-            setEditorHeight={this.props.setEditorHeight}
+            setScrollContainerHeight={this.props.setScrollContainerHeight}
           />
           <Button onClick={() => this.props.handleMutations()}>开始打印</Button>
         </Content>

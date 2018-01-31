@@ -1,7 +1,7 @@
 import React from 'react'
 import Home from '../components/Home'
 import { connect } from 'react-redux'
-import { handleMutations, setEditorHeight } from '../actions'
+import { handleMutations, setScrollContainerHeight } from '../actions'
 
 const HomeContainer = props => <Home {...props} />
 
@@ -14,5 +14,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   handleMutations,
-  setEditorHeight
+  setScrollContainerHeight
 })(HomeContainer)
