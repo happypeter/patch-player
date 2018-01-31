@@ -65,7 +65,6 @@ const Wrap = styled.div`
   pre[class*='language-'] {
     overflow: hidden;
   }
-
   /* Inline code */
   :not(pre) > code[class*='language-'] {
     padding: 0.1em;
