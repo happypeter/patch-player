@@ -7,8 +7,9 @@ import { animateScroll as scroll } from 'react-scroll'
 
 class HighLight extends Component {
   componentDidMount() {
-    const height = document.getElementById('scroll-container').clientHeight
-    this.props.setScrollContainerHeight(height)
+    // const height = document.getElementById('scroll-container').clientHeight
+    const height = 20 // FIXME: 暂时把编辑器视窗设置成固定的 20行 高
+    this.props.setEditorHeight(height)
   }
 
   componentDidUpdate() {
@@ -37,9 +38,6 @@ export default HighLight
 
 const Wrap = styled.div`
   background: #1d1f27;
-  font-size: 14px;
   overflow: auto;
-  padding: 16px;
-  flex-grow: 1;
   color: #fff;
 `

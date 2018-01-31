@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { LINE_HEIGHT } from '../constants/Editor'
 
 class Code extends Component {
   render() {
     return (
-      <Wrap>
+      <Wrap lineHeight={LINE_HEIGHT}>
         <pre>
           <code className="language-jsx">{this.props.children}</code>
         </pre>
@@ -25,7 +26,7 @@ const Wrap = styled.div`
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    line-height: 1.8;
+    line-height: ${props => props.lineHeight}px;
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
@@ -62,7 +63,6 @@ const Wrap = styled.div`
 
   /* Code blocks */
   pre[class*='language-'] {
-    margin: 0.5em 0;
     overflow: auto;
   }
 

@@ -3,7 +3,7 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   offset: 0,
   toY: 0,
-  containerHeight: 0
+  editorHeight: 0
 }
 const position = (state = initialState, action) => {
   switch (action.type) {
@@ -13,8 +13,8 @@ const position = (state = initialState, action) => {
     case types.SCROLL_TO_TOP:
       // 切换文件的时候，滚动到顶部，这个是不需要的 FIXME
       return { ...state, offset: 0, toY: -state.offset }
-    case types.SET_SCROLL_CONTAINER_HEIGHT:
-      return { ...state, containerHeight: action.height }
+    case types.SET_EDITOR_HEIGHT:
+      return { ...state, editorHeight: action.height }
     default:
       return state
   }

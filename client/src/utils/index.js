@@ -29,10 +29,8 @@ export const getToY = (currentLineNum, position) => {
 }
 
 const getScrollLineCount = (currentLineNum, position) => {
-  // const editorHeight = position.containerHeight
-  const editorHeight = 20
-  const { offset } = position
-  console.log('+++++++', currentLineNum, offset, editorHeight)
+  // const editorHeight = position.editorHeight
+  const { offset, editorHeight } = position
   if (currentLineNum - offset > editorHeight - 2) {
     return currentLineNum - offset - 2
   } else {

@@ -6,10 +6,9 @@ import * as actionTypes from '../constants/ActionTypes'
 const scroll = (mutation, dispatch, state) => {
   return new Promise(resolve => {
     const toY = utils.getToY(mutation.lineNum, state.position)
-    console.log('----action----', toY)
     if (toY) {
       dispatch({ type: actionTypes.SCROLL_DOWN, toY })
-      window.setTimeout(resolve, 6000)
+      window.setTimeout(resolve, 4000)
     } else {
       resolve()
     }
@@ -56,6 +55,6 @@ const typeCharacter = (character, index, dispatch) => {
   })
 }
 
-export const setScrollContainerHeight = height => {
-  return { type: actionTypes.SET_SCROLL_CONTAINER_HEIGHT, height }
+export const setEditorHeight = height => {
+  return { type: actionTypes.SET_EDITOR_HEIGHT, height }
 }
