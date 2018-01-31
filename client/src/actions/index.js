@@ -55,6 +55,6 @@ const typeCharacter = (character, index, dispatch) => {
   })
 }
 
-export const setScrollContainerHeight = height => {
+export const setEditorHeight = height => {
   return { type: actionTypes.SET_SCROLL_CONTAINER_HEIGHT, height }
 }
