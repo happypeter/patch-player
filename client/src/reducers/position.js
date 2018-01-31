@@ -1,9 +1,9 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
-  offset: 0, // 已经在编辑器顶部遮挡的行数
-  toY: 0, // 向下滚动的像素值，等于行数*20
-  containerHeight: 0 // 编辑器视窗总行数
+  offset: 0,
+  toY: 0,
+  containerHeight: 0
 }
 const position = (state = initialState, action) => {
   switch (action.type) {

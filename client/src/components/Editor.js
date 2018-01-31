@@ -4,6 +4,7 @@ import Prism from 'prismjs'
 import 'prismjs/components/prism-jsx'
 import CodeStyle from './EditorCode'
 import { animateScroll as scroll } from 'react-scroll'
+import { LINE_HEIGHT } from '../constants/Editor'
 
 class HighLight extends Component {
   componentDidMount() {
