@@ -40,7 +40,6 @@ const Wrap = styled.div`
   font-size: 14px;
   overflow: auto;
   padding: 16px;
-  line-height: 1.8;
   flex-grow: 1;
   color: #fff;
 `
