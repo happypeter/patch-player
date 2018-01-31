@@ -63,7 +63,7 @@ const Wrap = styled.div`
 
   /* Code blocks */
   pre[class*='language-'] {
-    overflow: auto;
+    overflow: hidden;
   }
 
   /* Inline code */
