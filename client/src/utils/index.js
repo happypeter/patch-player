@@ -1,3 +1,5 @@
+import { LINE_HEIGHT } from '../constants/Editor'
+
 export function eachPromise(str, iterator, ...args) {
   const promiseReducer = (prev, current) =>
     prev.then(() => iterator(current, ...args))
@@ -22,18 +24,16 @@ export const removeElementAtIndex = (arr, index) => {
   return [...arr.slice(0, index), ...arr.slice(index + 1)]
 }
 
-export const scrollToY = (lineNum, position) => {
-  const offset = position.offset
-  const height = position.containerHeight
-  const current = lineNum * 24 - offset
-  if (current < height) {
-    const bottom = height - current
-    if (bottom < 24 * 2) {
-      return Math.ceil(height / 2)
-    } else {
-      return 0
-    }
+export const getScollDownLines = (currentLineNum, position) => {
+  const editorHeight = position.containerHeight
+  const { offset } = position
+  if (currentLineNum - offset > editorHeight - 2) {
+    return currentLineNum - offset - 2
   } else {
-    return current - height + Math.ceil(height / 2)
+    return 0
   }
+}
+
+export const getToY = (currentLineNum, position) => {
+  getScollDownLines(currentLineNum, position) * LINE_HEIGHT
 }

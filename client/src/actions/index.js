@@ -5,7 +5,7 @@ import * as actionTypes from '../constants/ActionTypes'
 
 const scroll = (mutation, dispatch, state) => {
   return new Promise(resolve => {
-    const toY = utils.scrollToY(mutation.lineNum, state.position)
+    const toY = utils.getToY(mutation.lineNum, state.position)
     if (toY) {
       dispatch({ type: actionTypes.SCROLL_DOWN, toY })
       window.setTimeout(resolve, 6000)
