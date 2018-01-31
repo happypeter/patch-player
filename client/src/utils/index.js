@@ -1,5 +1,3 @@
-import { LINE_HEIGHT } from '../constants/Editor'
-
 export function eachPromise(str, iterator, ...args) {
   const promiseReducer = (prev, current) =>
     prev.then(() => iterator(current, ...args))
@@ -25,10 +23,6 @@ export const removeElementAtIndex = (arr, index) => {
 }
 
 export const getToY = (currentLineNum, position) => {
-  return getScrollLineCount(currentLineNum, position) * LINE_HEIGHT
-}
-
-const getScrollLineCount = (currentLineNum, position) => {
   // const editorHeight = position.editorHeight
   const { offset, editorHeight } = position
   if (currentLineNum - offset > editorHeight - 2) {

@@ -5,6 +5,7 @@ import 'prismjs/components/prism-jsx'
 import CodeStyle from './EditorCode'
 import { animateScroll as scroll } from 'react-scroll'
 import PropTypes from 'prop-types'
+import { LINE_HEIGHT } from '../constants/Editor'
 
 const propTypes = {
   position: PropTypes.shape({
@@ -27,7 +28,7 @@ class HighLight extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.position.offset !== this.props.position.offset) {
       const { toY } = nextProps.position
-      scroll.scrollMore(toY, {
+      scroll.scrollMore(toY * LINE_HEIGHT, {
         containerId: 'scroll-container',
         duration: 2000
       })
