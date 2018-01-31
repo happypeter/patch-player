@@ -4,6 +4,14 @@ import Prism from 'prismjs'
 import 'prismjs/components/prism-jsx'
 import CodeStyle from './EditorCode'
 import { animateScroll as scroll } from 'react-scroll'
+import PropTypes from 'prop-types'
+
+const propTypes = {
+  position: PropTypes.shape({
+    offset: PropTypes.number.isRequired,
+    editorHeight: PropTypes.number.isRequired
+  })
+}
 
 class HighLight extends Component {
   componentDidMount() {
@@ -27,17 +35,24 @@ class HighLight extends Component {
 
   render() {
     return (
-      <Wrap id="scroll-container">
+      <Wrap
+        editorHeight={this.props.position.editorHeight}
+        id="scroll-container"
+      >
         <CodeStyle>{this.props.file}</CodeStyle>
       </Wrap>
     )
   }
 }
 
+HighLight.propTypes = propTypes
+
 export default HighLight
 
 const Wrap = styled.div`
   background: #1d1f27;
   overflow: auto;
+  border: 1px solid red;
+  height: ${props => props.editorHeight * 20}px;
   color: #fff;
 `
