@@ -11,7 +11,6 @@ const position = (state = initialState, action) => {
       return { ...state, offset: state.offset + action.toY, toY: action.toY }
 
     case types.SCROLL_TO_TOP:
-      // 切换文件的时候，滚动到顶部，这个是不需要的 FIXME
       return { ...state, offset: 0, toY: -state.offset }
     case types.SET_EDITOR_HEIGHT:
       return { ...state, editorHeight: action.height }
