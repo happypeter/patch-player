@@ -12,7 +12,7 @@ const propTypes = {
     offset: PropTypes.number.isRequired,
     editorHeight: PropTypes.number.isRequired
   }),
-  file: PropTypes.string.isRequired
+  fileContent: PropTypes.string.isRequired
 }
 
 class HighLight extends Component {
@@ -36,7 +36,7 @@ class HighLight extends Component {
         editorHeight={this.props.position.editorHeight}
         id="scroll-container"
       >
-        <CodeStyle>{this.props.file}</CodeStyle>
+        <CodeStyle>{this.props.fileContent}</CodeStyle>
       </Wrap>
     )
   }

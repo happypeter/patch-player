@@ -7,7 +7,7 @@ const HomeContainer = props => <Home {...props} />
 const mapStateToProps = state => ({
   fileName: state.git.fileName,
   patch: state.patch,
-  file: state.file,
+  fileContent: state.file,
   position: state.position
 })
 

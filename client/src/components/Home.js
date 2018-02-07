@@ -1,26 +1,32 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Editor from './Editor'
+import PropTypes from 'prop-types'
 
+const propTypes = {
+  fileContent: PropTypes.string.isRequired
+}
 class Home extends Component {
   componentDidMount() {
     sessionStorage.setItem('mode', 'slave')
   }
 
   render() {
-    const { file, fileName, position } = this.props
+    const { fileContent, fileName, position } = this.props
     return (
       <Wrap>
         <Content>
           <FileTabs>
             <FileTab>{fileName}</FileTab>
           </FileTabs>
-          <Editor file={file} position={position} />
+          <Editor fileContent={fileContent} position={position} />
         </Content>
       </Wrap>
     )
   }
 }
+
+Home.propTypes = propTypes
 
 export default Home
 
