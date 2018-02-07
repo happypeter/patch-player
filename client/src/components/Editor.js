@@ -47,10 +47,9 @@ HighLight.propTypes = propTypes
 export default HighLight
 
 const Wrap = styled.div`
-  padding: 10px;
   background: ${EDITOR_BG};
   border: 1px solid red;
   overflow: hidden;
-  height: ${props => props.editorHeight * LINE_HEIGHT + 20}px;
+  height: ${props => props.editorHeight * LINE_HEIGHT}px;
   color: #fff;
 `

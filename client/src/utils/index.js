@@ -1,3 +1,5 @@
+import { EDITOR_HEIGHT } from '../constants/Editor'
+
 export function eachPromise(str, iterator, ...args) {
   const promiseReducer = (prev, current) =>
     prev.then(() => iterator(current, ...args))
@@ -31,7 +33,7 @@ export const getToY = (currentLineNum, state) => {
   if (currentLineNum - offset > editorHeight - 2) {
     if (currentLineNum + 18 > totalLineCount) {
       // 文件快要到底部了
-      return totalLineCount - 20 - offset
+      return totalLineCount - EDITOR_HEIGHT - offset
     }
     return currentLineNum - offset - 2
   } else {

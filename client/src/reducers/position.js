@@ -1,9 +1,10 @@
 import * as types from '../constants/ActionTypes'
+import { EDITOR_HEIGHT } from '../constants/Editor'
 
 const initialState = {
   offset: 0,
   toY: 0,
-  editorHeight: 24
+  editorHeight: EDITOR_HEIGHT
 }
 const position = (state = initialState, action) => {
   switch (action.type) {
