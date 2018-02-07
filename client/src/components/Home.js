@@ -16,7 +16,6 @@ class Home extends Component {
             position={position}
             setEditorHeight={this.props.setEditorHeight}
           />
-          <Button onClick={() => this.props.handleMutations()}>开始打印</Button>
         </Content>
       </Wrap>
     )
@@ -59,17 +58,4 @@ const FileTab = styled.div`
   &:first-child {
     margin-left: 0;
   }
-`
-
-const Button = styled.button`
-  width: 200px;
-  height: 48px;
-  color: #212121;
-  background-color: #f3b661;
-  border: none;
-  margin-top: 16px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 16px;
-  flex-shrink: 0;
 `

@@ -11,7 +11,8 @@ const propTypes = {
   position: PropTypes.shape({
     offset: PropTypes.number.isRequired,
     editorHeight: PropTypes.number.isRequired
-  })
+  }),
+  file: PropTypes.string.isRequired
 }
 
 class HighLight extends Component {

@@ -3,6 +3,11 @@ import styled from 'styled-components'
 import CommitList from './CommitList'
 import FileList from './FileList'
 import Patch from './Patch'
+import PropTypes from 'prop-types'
+
+const propTypes = {
+  handleMutations: PropTypes.func.isRequired
+}
 
 class Dashboard extends Component {
   // TODO: 选择项目，项目文件夹传递给后端 express 代码
@@ -25,12 +30,14 @@ class Dashboard extends Component {
 
   render() {
     const { commits, repo } = this.props.git
+    const { handleMutations } = this.props
     return (
       <Wrap>
         <Form onSubmit={this.handleSubmit}>
           <Input value={this.state.repo} onChange={this.handlePathChange} />
           <Button type="submit">提交</Button>
         </Form>
+        <PrintButton onClick={handleMutations}>开始打印</PrintButton>
         <Content>
           <CommitList
             commits={commits}
@@ -44,6 +51,8 @@ class Dashboard extends Component {
     )
   }
 }
+
+Dashboard.propTypes = propTypes
 
 export default Dashboard
 
@@ -89,4 +98,17 @@ const Content = styled.div`
   flex-direction: row;
   flex-grow: 1;
   overflow-y: hidden;
+`
+
+const PrintButton = styled.button`
+  width: 200px;
+  height: 48px;
+  color: #212121;
+  background-color: #f3b661;
+  border: none;
+  margin-top: 16px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 16px;
+  flex-shrink: 0;
 `
