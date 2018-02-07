@@ -5,7 +5,8 @@ import * as actionTypes from '../constants/ActionTypes'
 
 const scroll = (mutation, dispatch, state) => {
   return new Promise(resolve => {
-    const toY = utils.getToY(mutation.lineNum, state.position, state)
+    const toY = utils.getToY(mutation.lineNum, state)
+    console.log(toY, mutation)
     if (toY) {
       dispatch({ type: actionTypes.SCROLL_DOWN, toY })
       window.setTimeout(resolve, 4000)
@@ -53,8 +54,4 @@ const typeCharacter = (character, index, dispatch) => {
     }
     setTimeout(type, 20)
   })
-}
-
-export const setEditorHeight = height => {
-  return { type: actionTypes.SET_EDITOR_HEIGHT, height }
 }

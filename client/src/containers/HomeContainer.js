@@ -1,7 +1,6 @@
 import React from 'react'
 import Home from '../components/Home'
 import { connect } from 'react-redux'
-import { setEditorHeight } from '../actions'
 
 const HomeContainer = props => <Home {...props} />
 
@@ -12,6 +11,4 @@ const mapStateToProps = state => ({
   position: state.position
 })
 
-export default connect(mapStateToProps, {
-  setEditorHeight
-})(HomeContainer)
+export default connect(mapStateToProps, {})(HomeContainer)

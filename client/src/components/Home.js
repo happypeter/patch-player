@@ -15,11 +15,7 @@ class Home extends Component {
           <FileTabs>
             <FileTab>{fileName}</FileTab>
           </FileTabs>
-          <Editor
-            file={file}
-            position={position}
-            setEditorHeight={this.props.setEditorHeight}
-          />
+          <Editor file={file} position={position} />
         </Content>
       </Wrap>
     )

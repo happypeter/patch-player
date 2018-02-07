@@ -16,12 +16,6 @@ const propTypes = {
 }
 
 class HighLight extends Component {
-  componentDidMount() {
-    // const height = document.getElementById('scroll-container').clientHeight
-    const height = 20 // FIXME: 暂时把编辑器视窗设置成固定的 20行 高
-    this.props.setEditorHeight(height)
-  }
-
   componentDidUpdate() {
     Prism.highlightAll()
   }
