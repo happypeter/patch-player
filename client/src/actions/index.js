@@ -11,6 +11,7 @@ const scroll = (mutation, dispatch, state) => {
       dispatch({ type: actionTypes.SCROLL_DOWN, toY })
       window.setTimeout(resolve, 4000)
     } else {
+      dispatch({ type: actionTypes.RESET_TO_Y })
       resolve()
     }
   })
