@@ -48,9 +48,11 @@ const Content = styled.div`
 const FileTabs = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border-bottom: 1px solid #00bcd4;
+  height: 60px;
   flex-shrink: 0;
+  font-size: 25px;
 `
 
 const FileTab = styled.div`
