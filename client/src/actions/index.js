@@ -27,9 +27,6 @@ const applyMutation = (mutation, dispatch, getState) => {
 
 export const handleMutations = () => (dispatch, getState) => {
   const mutations = patch.parse(getState().patch)
-  console.log('handleMuations', mutations)
-  // FIXME: 一个新文件开始打印，第一个 mutation.lineNum 是 0
-
   utils.eachPromise(mutations, applyMutation, dispatch, getState)
 }
 
@@ -46,7 +43,6 @@ const removeLine = (mutation, dispatch) => {
 
 const insertLine = (mutation, dispatch) => {
   dispatch({ type: actionTypes.INSERT_EMPTY_LINE, mutation })
-  console.log('insertLine', mutation)
   const index = mutation.lineNum - 1
   return utils.eachPromise(mutation.text, typeCharacter, index, dispatch)
 }
