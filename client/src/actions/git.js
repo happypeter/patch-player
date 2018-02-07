@@ -1,13 +1,11 @@
 import * as actionTypes from '../constants/ActionTypes'
 import { SERVER } from '../constants/ApiConstants'
 import axios from 'axios'
-// import socket from '../utils/socket'
 import { removePatchMetadata } from '../utils/patch'
 
 const loadCommits = commits => ({ type: actionTypes.LOAD_COMMITS, commits })
 
 export const selectCommit = (commit, repo) => dispatch => {
-  // socket.emit('commit', { commit: commit.slice(0, 7), repo })
   axios
     .post(`${SERVER}/commit-detail`, { commit: commit.slice(0, 7), repo })
     .then(res => {
@@ -24,12 +22,15 @@ export const loadCommitFiles = data => ({
 })
 
 export const selectFile = data => dispatch => {
-  // FIXME: 有了 sync-middleware ，本文件中的所有 emit 应该都可以删除了。
-  dispatch({ type: actionTypes.SELECT_FILE, file: data.file })
-  dispatch({ type: actionTypes.SET_PATCH, patch: '' })
+  axios.post(`${SERVER}/file-detail`, data).then(res => {
+    console.log('selectFile', res.data)
+    loadFileAndPatch(res.data, dispatch)
+    dispatch({ type: actionTypes.SELECT_FILE, file: data.file })
+  })
 }
 
-export const loadFileAndPatch = data => dispatch => {
+export const loadFileAndPatch = (data, dispatch) => {
+  // WIP
   dispatch({ type: actionTypes.SCROLL_TO_TOP })
   if (data.content) {
     dispatch({ type: actionTypes.SET_FILE, file: data.content })

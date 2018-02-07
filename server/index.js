@@ -13,46 +13,33 @@ app.use(bodyParser.json())
 app.use(cors())
 
 io.on('connection', socket => {
-  socket.on('repo', data => {
-    console.log(data.repo)
-    const repo = data.repo
-    git.log(repo).then(result => {
-      if (!result) {
-        console.log('no commits')
-      }
-      socket.broadcast.emit('git commits', { commits: result.split('\n') })
-    })
-  })
-
   socket.on('action', action => {
-    console.log('hello action---', action)
     socket.broadcast.emit('action', action)
-  })
-
-  socket.on('file', source => {
-    Promise.all([git.showFileContent(source), git.showFilePatch(source)])
-      .then(result => {
-        console.log(result[1])
-        const content = socket.broadcast.emit('file content and patch', {
-          content: result[0],
-          patch: result[1],
-          file: source.file
-        })
-      })
-      .catch(error => {
-        console.log(error)
-      })
   })
 })
 
 app.post('/commits', (req, res) => {
-  console.log('/commits here', req.body)
   git.log(req.body.repo).then(result => {
     if (!result) {
       console.log('no commits')
     }
     res.json({ commits: result.split('\n') })
   })
+})
+
+app.post('/file-detail', (req, res) => {
+  let source = req.body
+  Promise.all([git.showFileContent(source), git.showFilePatch(source)])
+    .then(result => {
+      res.json({
+        content: result[0],
+        patch: result[1],
+        file: source.file
+      })
+    })
+    .catch(error => {
+      console.log(error)
+    })
 })
 
 app.post('/commit-detail', (req, res) => {

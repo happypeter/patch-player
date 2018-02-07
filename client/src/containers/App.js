@@ -11,14 +11,9 @@ class App extends Component {
   componentDidMount() {
     if (sessionStorage.getItem('mode') === 'slave') {
       socket.on('action', action => {
-        console.log('action', action)
         store.dispatch(action)
       })
     }
-
-    // socket.on('file content and patch', data => {
-    //   this.props.loadFileAndPatch(data)
-    // })
   }
 
   render() {
