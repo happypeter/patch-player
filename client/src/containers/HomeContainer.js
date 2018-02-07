@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const HomeContainer = props => <Home {...props} />
 
 const mapStateToProps = state => ({
-  fileName: state.git.file,
+  fileName: state.git.fileName,
   patch: state.patch,
   file: state.file,
   position: state.position

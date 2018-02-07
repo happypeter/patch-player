@@ -25,7 +25,7 @@ export const selectFile = data => dispatch => {
   axios.post(`${SERVER}/file-detail`, data).then(res => {
     console.log('selectFile', res.data)
     loadFileAndPatch(res.data, dispatch)
-    dispatch({ type: actionTypes.SELECT_FILE, file: data.file })
+    dispatch({ type: actionTypes.SELECT_FILE, fileName: data.file })
   })
 }
 
@@ -42,7 +42,7 @@ export const loadFileAndPatch = (data, dispatch) => {
     })
   }
   // Home 页从 store 中获取所展示文件的文件名
-  dispatch({ type: actionTypes.SELECT_FILE, file: data.file })
+  dispatch({ type: actionTypes.SELECT_FILE, fileName: data.file })
 }
 
 export const setRepo = repo => dispatch => {
