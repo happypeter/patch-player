@@ -10,9 +10,6 @@ const propTypes = {
 }
 
 class Dashboard extends Component {
-  // TODO: 选择项目，项目文件夹传递给后端 express 代码
-  // TODO: 启动/暂停代码播放
-
   componentDidMount() {
     sessionStorage.setItem('mode', 'master')
   }
@@ -33,8 +30,7 @@ class Dashboard extends Component {
   }
 
   handleClick = () => {
-    // this.props.handleMutations()
-    // sessionStorage.setItem('mode', 'master')
+    this.props.handleMutations()
   }
 
   render() {
