@@ -13,6 +13,10 @@ class Dashboard extends Component {
   // TODO: 选择项目，项目文件夹传递给后端 express 代码
   // TODO: 启动/暂停代码播放
 
+  componentDidMount() {
+    sessionStorage.setItem('mode', 'master')
+  }
+
   state = {
     repo: this.props.git.repo
   }
@@ -28,16 +32,20 @@ class Dashboard extends Component {
     this.props.setRepo(repo.trim())
   }
 
+  handleClick = () => {
+    // this.props.handleMutations()
+    // sessionStorage.setItem('mode', 'master')
+  }
+
   render() {
     const { commits, repo } = this.props.git
-    const { handleMutations } = this.props
     return (
       <Wrap>
         <Form onSubmit={this.handleSubmit}>
           <Input value={this.state.repo} onChange={this.handlePathChange} />
           <Button type="submit">提交</Button>
         </Form>
-        <PrintButton onClick={handleMutations}>开始打印</PrintButton>
+        <PrintButton onClick={this.handleClick}>开始打印</PrintButton>
         <Content>
           <CommitList
             commits={commits}

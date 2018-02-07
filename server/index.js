@@ -42,6 +42,11 @@ io.on('connection', socket => {
       })
   })
 
+  socket.on('action', action => {
+    console.log('hello action---', action)
+    socket.broadcast.emit('action', action)
+  })
+
   socket.on('file', source => {
     Promise.all([git.showFileContent(source), git.showFilePatch(source)])
       .then(result => {

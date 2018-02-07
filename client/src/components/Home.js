@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import Editor from './Editor'
 
 class Home extends Component {
+  componentDidMount() {
+    sessionStorage.setItem('mode', 'slave')
+  }
+
   render() {
     const { file, fileName, position } = this.props
     return (
