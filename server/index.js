@@ -24,30 +24,6 @@ io.on('connection', socket => {
     })
   })
 
-  socket.on('commit', source => {
-    Promise.all([git.lsTree(source), git.diffTree(source)])
-      .then(result => {
-        let changedFiles = []
-        if (result[1]) {
-          changedFiles = result[1]
-            .trim()
-            .split('\n')
-            .map(item => {
-              const arr = item.split(/\s/)
-              return { status: arr[0], file: arr[1] }
-            })
-        }
-
-        socket.broadcast.emit('commit files', {
-          files: result[0].split('\n'),
-          changedFiles
-        })
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  })
-
   socket.on('action', action => {
     console.log('hello action---', action)
     socket.broadcast.emit('action', action)
@@ -78,6 +54,30 @@ app.post('/commits', (req, res) => {
     res.json({ commits: result.split('\n') })
   })
 })
+
+app.post('/commit-detail', (req, res) => {
+  console.log('', req.body)
+  let source = req.body
+  Promise.all([git.lsTree(source), git.diffTree(source)])
+    .then(result => {
+      let changedFiles = []
+      if (result[1]) {
+        changedFiles = result[1]
+          .trim()
+          .split('\n')
+          .map(item => {
+            const arr = item.split(/\s/)
+            return { status: arr[0], file: arr[1] }
+          })
+      }
+      let files = result[0].split('\n')
+      res.json({ files, changedFiles })
+    })
+    .catch(error => {
+      console.log(error)
+    })
+})
+
 server.listen(3002, () => {
   console.log('running on port 3002...')
 })

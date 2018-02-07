@@ -15,9 +15,7 @@ class App extends Component {
         store.dispatch(action)
       })
     }
-    // socket.on('commit files', data => {
-    //   this.props.loadCommitFiles(data)
-    // })
+
     // socket.on('file content and patch', data => {
     //   this.props.loadFileAndPatch(data)
     // })

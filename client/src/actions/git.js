@@ -8,13 +8,20 @@ const loadCommits = commits => ({ type: actionTypes.LOAD_COMMITS, commits })
 
 export const selectCommit = (commit, repo) => dispatch => {
   // socket.emit('commit', { commit: commit.slice(0, 7), repo })
-  dispatch({ type: actionTypes.SELECT_COMMIT, commit })
-  dispatch({ type: actionTypes.SET_PATCH, patch: '' })
+  axios
+    .post(`${SERVER}/commit-detail`, { commit: commit.slice(0, 7), repo })
+    .then(res => {
+      console.log('commit-detail, res.data', res.data)
+      dispatch(loadCommitFiles(res.data))
+      dispatch({ type: actionTypes.SELECT_COMMIT, commit })
+      dispatch({ type: actionTypes.SET_PATCH, patch: '' })
+    })
 }
 
-export const loadCommitFiles = data => dispatch => {
-  dispatch({ type: actionTypes.LOAD_COMMIT_FILES, data })
-}
+export const loadCommitFiles = data => ({
+  type: actionTypes.LOAD_COMMIT_FILES,
+  data
+})
 
 export const selectFile = data => dispatch => {
   // FIXME: 有了 sync-middleware ，本文件中的所有 emit 应该都可以删除了。
@@ -38,11 +45,8 @@ export const loadFileAndPatch = data => dispatch => {
 }
 
 export const setRepo = repo => dispatch => {
-  // socket.emit('repo', { repo }) //FIXME: 最好用 axios ，这样发送失败会有反馈
-  console.log('setRepo......')
   localStorage.setItem('repo', repo)
   axios.post(`${SERVER}/commits`, { repo }).then(res => {
-    console.log('action setRepo, data', res.data.commits)
     dispatch(loadCommits(res.data.commits))
   })
   dispatch({ type: actionTypes.SET_REPO, repo })
