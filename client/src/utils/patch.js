@@ -27,7 +27,7 @@ export const parseHunk = hunk => {
   let hunkLines = hunk.split('\n')
   let metaMatches = hunkLines[0].match(HUNK_META)
   console.log('parseHunk', metaMatches)
-  let startLineNum = Number(metaMatches[3])
+  let startLineNum = Number(metaMatches[1])
 
   const mainLines = hunkLines.slice(1)
   let offSet = 0

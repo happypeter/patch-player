@@ -48,7 +48,6 @@ export default HighLight
 
 const Wrap = styled.div`
   background: ${EDITOR_BG};
-  border: 1px solid red;
   overflow: hidden;
   height: ${props => props.editorHeight * LINE_HEIGHT}px;
   color: #fff;

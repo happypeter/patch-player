@@ -73,6 +73,5 @@ const FileTab = styled.div`
 
 const EditorWrap = styled.div`
   background: ${EDITOR_BG};
-  /* border: 2px solid yellow; */
-  padding: 10px;
+  padding: 20px;
 `
