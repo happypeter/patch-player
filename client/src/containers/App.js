@@ -2,11 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Main from '../components/Main'
 import { loadCommitFiles, loadFileAndPatch } from '../actions/git'
-import io from 'socket.io-client'
 import store from '../store'
-import { SERVER } from '../constants/ApiConstants'
-
-const socket = io(SERVER)
+import socket from '../utils/socket'
 
 class App extends Component {
   componentDidMount() {
