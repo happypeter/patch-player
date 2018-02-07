@@ -1,10 +1,10 @@
 import * as actionTypes from '../constants/ActionTypes'
+import { SERVER } from '../constants/ApiConstants'
+import axios from 'axios'
 // import socket from '../utils/socket'
 import { removePatchMetadata } from '../utils/patch'
 
-export const loadCommits = commits => dispatch => {
-  dispatch({ type: actionTypes.LOAD_COMMITS, commits })
-}
+const loadCommits = commits => ({ type: actionTypes.LOAD_COMMITS, commits })
 
 export const selectCommit = (commit, repo) => dispatch => {
   // socket.emit('commit', { commit: commit.slice(0, 7), repo })
@@ -17,7 +17,6 @@ export const loadCommitFiles = data => dispatch => {
 }
 
 export const selectFile = data => dispatch => {
-  // socket.emitsocket.emit('file', data)
   // FIXME: 有了 sync-middleware ，本文件中的所有 emit 应该都可以删除了。
   dispatch({ type: actionTypes.SELECT_FILE, file: data.file })
   dispatch({ type: actionTypes.SET_PATCH, patch: '' })
@@ -42,5 +41,9 @@ export const setRepo = repo => dispatch => {
   // socket.emit('repo', { repo }) //FIXME: 最好用 axios ，这样发送失败会有反馈
   console.log('setRepo......')
   localStorage.setItem('repo', repo)
+  axios.post(`${SERVER}/commits`, { repo }).then(res => {
+    console.log('action setRepo, data', res.data.commits)
+    dispatch(loadCommits(res.data.commits))
+  })
   dispatch({ type: actionTypes.SET_REPO, repo })
 }
