@@ -1,5 +1,3 @@
-import position from '../reducers/position'
-
 export function eachPromise(str, iterator, ...args) {
   const promiseReducer = (prev, current) =>
     prev.then(() => iterator(current, ...args))
