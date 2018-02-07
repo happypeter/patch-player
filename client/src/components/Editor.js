@@ -5,7 +5,7 @@ import 'prismjs/components/prism-jsx'
 import CodeStyle from './EditorCode'
 import { animateScroll as scroll } from 'react-scroll'
 import PropTypes from 'prop-types'
-import { LINE_HEIGHT } from '../constants/Editor'
+import { LINE_HEIGHT, EDITOR_BG } from '../constants/Editor'
 
 const propTypes = {
   position: PropTypes.shape({
@@ -48,7 +48,8 @@ export default HighLight
 
 const Wrap = styled.div`
   padding: 10px;
-  background: #1d1f27;
+  background: ${EDITOR_BG};
+  border: 1px solid red;
   overflow: hidden;
   height: ${props => props.editorHeight * LINE_HEIGHT + 20}px;
   color: #fff;

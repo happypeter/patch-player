@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Editor from './Editor'
 import PropTypes from 'prop-types'
+import { EDITOR_BG } from '../constants/Editor'
 
 const propTypes = {
   fileContent: PropTypes.string.isRequired
@@ -19,7 +20,9 @@ class Home extends Component {
           <FileTabs>
             <FileTab>{fileName}</FileTab>
           </FileTabs>
-          <Editor fileContent={fileContent} position={position} />
+          <EditorWrap>
+            <Editor fileContent={fileContent} position={position} />
+          </EditorWrap>
         </Content>
       </Wrap>
     )
@@ -66,4 +69,10 @@ const FileTab = styled.div`
   &:first-child {
     margin-left: 0;
   }
+`
+
+const EditorWrap = styled.div`
+  background: ${EDITOR_BG};
+  /* border: 2px solid yellow; */
+  padding: 10px;
 `
