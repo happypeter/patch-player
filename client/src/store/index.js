@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import { createSyncMiddleware } from '../utils/sync-middleware'
 let middleware = applyMiddleware(thunk)
 if (sessionStorage.getItem('mode') === 'master') {
-  middleware = applyMiddleware(createSyncMiddleware(socket), thunk)
+  middleware = applyMiddleware(thunk, createSyncMiddleware(socket))
 }
 
 export default createStore(rootReducer, middleware)
